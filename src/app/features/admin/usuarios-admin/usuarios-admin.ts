@@ -62,14 +62,14 @@ export class UsuariosAdmin implements OnInit{
   }
 
   listaFiltrada = linkedSignal(()=>{
-    const email =  this.searchEmail();
+    const email =  this.searchEmail().toLowerCase();
     const username =  this.searchUsername();
     const rol = this.checkedRol();
-    const name = this.searchName()
+    const name = this.searchName().toLowerCase();
     let lista =  this.currentUsers();
 
     if(email.length>0){
-      lista = lista.filter( u => u.email.includes(email) )
+      lista = lista.filter( u => u.email.toLowerCase().includes(email) )
     }
 
     if(username.length>0){
@@ -82,7 +82,7 @@ export class UsuariosAdmin implements OnInit{
     }
 
     if(name && name.length>0){
-      lista = lista.filter( u => u.nombreCompleto.includes(name) )
+      lista = lista.filter( u => u.nombreCompleto.toLowerCase().includes(name) )
     }
 
     return lista;

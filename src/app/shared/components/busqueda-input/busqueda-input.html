@@ -1,34 +1,39 @@
-<div class="flex justify-center my-4 relative">
-  <!-- 🔍 Input de búsqueda -->
-  <div class="relative w-3/4 md:w-1/2">
-    <input
-      type="text"
-      [(ngModel)]="buscarPalabra"
-      (keydown.enter)="onSearch()"
-      placeholder="🔍 Busca por el nombre del usuario..."
-      class="w-full px-5 py-3 rounded-2xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 text-gray-800 dark:text-white placeholder-gray-400"
-      (focus)="focused = true"
-    />
+<div>
+  <div class="flex justify-center my-4 relative">
+    <!-- 🔍 Input de búsqueda -->
+    <div class="relative w-3/4 md:w-1/2">
+      <input type="text" [(ngModel)]="buscarPalabra" (keydown.enter)="onSearch()"
+        placeholder="🔍 Busca por el nombre del usuario..."
+        class="w-full px-5 py-3 rounded-2xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 text-gray-800 dark:text-white placeholder-gray-400"
+        (focus)="focused = true" />
 
-    <!-- 🔽 Ventana de sugerencias -->
-    @if (suggestions().length && focused) {
-    <ul class="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg w-full z-20 overflow-hidden animate-fade-in" >
-      @for (s of suggestions(); track $index) {
+      <!-- 🔽 Ventana de sugerencias -->
+      @if (suggestions().length && focused) {
+      <ul
+        class="absolute top-full left-0 mt-2 bg-white dark:bg-gray-600  border border-gray-200 rounded-xl shadow-lg w-full z-20 overflow-hidden animate-fade-in">
+        @for (s of suggestions(); track $index) {
         <li (click)="selectSuggestion(s.trim())"
-          class="px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-blue-800 cursor-pointer transition" >
+          class="px-4 py-2 text-gray-700 dark:text-white/90 hover:bg-blue-100 hover:text-blue-800 cursor-pointer transition">
           {{ s }}
         </li>
+        }
+      </ul>
       }
-    </ul>
-    }
 
+      @if (buscarPalabra().length > 0) {
+        <button class="py-0.5 px-1.5 absolute right-2 top-2 rounded-2xl text-red-500 hover:bg-red-700 hover:text-white hover:font-bold cursor-pointer" (click)="cerrarbusqueda()" title="Borrar">✕</button>
+      }
+
+    </div>
+
+    <!-- 🔘 Botón de búsqueda -->
+    <button (click)="onSearch()"
+      class="ml-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-400 text-white font-medium shadow-md hover:shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-transform duration-200 active:scale-95">
+      Buscar
+    </button>
   </div>
+  @if (buscarPalabra().trim().length === 0 && focused) {
+  <p class="text-red-600 text-center mb-2">No ingrese espacios vacios</p>
+  }
 
-  <!-- 🔘 Botón de búsqueda -->
-  <button
-    (click)="onSearch()"
-    class="ml-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium shadow-md hover:shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-transform duration-200 active:scale-95"
-  >
-    Buscar
-  </button>
 </div>

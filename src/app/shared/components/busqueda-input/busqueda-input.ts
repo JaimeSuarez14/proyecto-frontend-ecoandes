@@ -1,4 +1,4 @@
-import { Component, computed, inject, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '@shared/services/user-service';
@@ -15,6 +15,12 @@ export class BusquedaInput {
   router = inject(Router);
   enviarResultado =  output<string>()
 
+  constructor(){
+    effect(() => {
+      if(this.buscarPalabra()===""){ this.onSearch()}
+    })
+
+  }
   //Estado para mostrar/ocultar las sugerencias
   focused = true;
 
@@ -22,7 +28,6 @@ export class BusquedaInput {
   suggestions = computed(() => {
     const term = this.buscarPalabra().toLowerCase().trim();
     if (!term) return [];
-
     const allNames = this.store.usuarios().map((p) => p.nombreCompleto);
     // Sugerencias que contengan el texto ingresado
     return allNames
@@ -33,10 +38,10 @@ export class BusquedaInput {
   // 🚀 Buscar al presionar Enter o hacer click
   onSearch() {
     this.focused = false;
-    if(this.buscarPalabra().length===0){
-      alert("Ingrese el nombre a buscar");
-      return;
-    }
+    // if(this.buscarPalabra().length===0){
+    //   alert("Ingrese el nombre a buscar");
+    //   return;
+    // }
     this.enviarResultado.emit(this.buscarPalabra())
   }
 
@@ -44,5 +49,9 @@ export class BusquedaInput {
   selectSuggestion(s: string) {
     this.buscarPalabra.set(s);
     this.onSearch();
+  }
+
+  cerrarbusqueda(){
+    this.buscarPalabra.set("");
   }
 }
