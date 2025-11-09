@@ -1,0 +1,3 @@
+.fondo {
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.75)), url(/assets/img/imagen_fondo_principal.jpg);
+}

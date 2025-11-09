@@ -1,0 +1,145 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+  <div class="w-full max-w-md md:max-w-lg">
+    <div class="bg-white rounded-lg shadow-[0_0_10px_rgba(0,0,0,0.1)] p-6 mt-3">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold mb-1">EcoAndes Café</h1>
+        <p class="text-gray-500">Crear una nueva cuenta</p>
+      </div>
+      @if(message()) {
+        <div
+        [ngClass]="{'bg-green-100 text-green-700': message()?.type === 'success', 'bg-red-100 text-red-700': message()?.type === 'error'}"
+        class="p-4 rounded-lg flex items-center mb-4 transition-all duration-300 ease-in-out" >
+        <svg *ngIf="message()?.type === 'success'" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+            clip-rule="evenodd" fill-rule="evenodd"></path>
+        </svg>
+        <svg *ngIf="message()?.type === 'error'" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+            clip-rule="evenodd" fill-rule="evenodd"></path>
+        </svg>
+        <span>{{ message()?.text }}</span>
+        <button (click)="closeMessage()"
+          class="ml-auto text-current p-1 rounded-full hover:bg-current hover:bg-opacity-25 transition-colors duration-200">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd" fill-rule="evenodd"></path>
+          </svg>
+        </button>
+      </div>
+      }
+
+
+      <form (ngSubmit)="onSubmit()">
+        <input type="hidden" name="id_usuario" />
+
+        <div class="flex flex-col md:flex-row flex-wrap gap-1">
+          <div class="flex-1 mb-4">
+            <label for="username" class="block font-semibold mb-1">
+              <i class="bi bi-person-circle text-blue-600 mr-2"></i>Usuario
+            </label>
+            <input type="text" id="username" [(ngModel)]="usuarioSignal.username" name="username"
+              class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500"
+              placeholder="Ingresa tu usuario" required />
+          </div>
+
+          <div class="flex-1 mb-4">
+            <label for="password" class="block font-semibold mb-1">
+              <i class="bi bi-shield-lock text-blue-600 mr-2 w-full"></i>Contraseña
+            </label>
+            <div
+              class="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500 transition-all duration-300 ease-in-out">
+              <input [type]="passwordVisible() ? 'text' : 'password'" id="password" [(ngModel)]="usuarioSignal.password"
+                name="password" class="flex-1 p-2 focus:outline-none placeholder-gray-500" placeholder="Ingresa tu contraseña" required />
+              <button type="button" (click)="togglePasswordVisibility()"
+                class="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                title="Mostrar/ocultar contraseña">
+                <i class="bi" [ngClass]="{'bi-eye': !passwordVisible(), 'bi-eye-slash': passwordVisible()}"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="nombre" class="block font-semibold mb-1">
+            <i class="bi bi-person-fill text-blue-600 mr-2"></i>Nombre completo
+          </label>
+          <input type="text" id="nombre" [(ngModel)]="usuarioSignal.nombreCompleto" name="nombre"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-1">
+          <div class="mb-3 w-full">
+            <label for="email" class="block font-semibold mb-1">
+              <i class="bi bi-envelope-at text-blue-600 mr-2"></i>Correo electrónico
+            </label>
+            <input type="email" id="email" [(ngModel)]="usuarioSignal.email" name="email"
+              class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+
+          <div class="mb-4 w-full">
+            <label for="celular" class="block font-semibold mb-1">
+              <i class="bi bi-phone text-blue-600 mr-2"></i>Celular
+            </label>
+            <input type="tel" id="celular" [(ngModel)]="usuarioSignal.celular" name="celular"
+              class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required>
+          </div>
+        </div>
+
+        <!-- <div class="mb-4">
+          <label class="block font-semibold mb-1">
+            <i class="bi bi-person-gear text-blue-600 mr-2"></i>Rol(es)
+          </label>
+          <div *ngFor="let rol of listaRoles" class="flex items-center mb-1">
+            <input type="checkbox" [value]="rol.id" [id]="'rol_' + rol.id"
+              (change)="updateRoles(rol.id, $event.target.checked)" class="form-checkbox h-4 w-4 text-blue-600 rounded">
+            <label [for]="'rol_' + rol.id" class="ml-2 text-gray-700">
+              <span [ngSwitch]="rol.name">
+                <span *ngSwitchCase="'ROLE_ADMIN'">Administrador</span>
+                <span *ngSwitchCase="'ROLE_CLIENTE'">Cliente</span>
+                <span *ngSwitchCase="'ROLE_DUEÑO'">Dueño</span>
+                <span *ngSwitchDefault>Otro</span>
+              </span>
+            </label>
+          </div>
+        </div> -->
+        <div class="mb-3">
+          <label for="direccion" class="block font-semibold">
+            <i class="fa-solid fa-location-dot"></i>
+            <i class="bi bi-geo-alt text-blue-600 mr-2"></i>Dirección completa
+          </label>
+          <span class="text-xs text-gray-600">*Coloque su dirección con detalle para su entrega.</span>
+          <input type="text" id="direccion" [(ngModel)]="usuarioSignal.direccion" name="direccion"
+            class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required>
+        </div>
+
+        <div class="grid gap-2">
+          <button type="submit" [disabled]="!isFormValid()"
+            class="w-full py-3 px-4 rounded-lg bg-green-500 text-white font-bold text-lg hover:bg-green-600 transition-colors duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+            <i class="bi bi-person-plus mr-2"></i> Registrarse
+          </button>
+        </div>
+      </form>
+
+      <div class="text-center mt-4">
+        <p class="text-gray-500">¿Ya tienes una cuenta?</p>
+        <a routerLink="/login"
+          class="text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200">
+          <i class="bi bi-box-arrow-in-right mr-1"></i> Iniciar sesión
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <small class="text-gray-400">
+        <i class="bi bi-info-circle mr-1"></i> ©2025 Sello de EcoAndes.
+      </small>
+    </div>
+  </div>
+</div>

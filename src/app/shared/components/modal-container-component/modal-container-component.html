@@ -1,0 +1,48 @@
+<!-- CONTENEDOR PRINCIPAL DE MODALES -->
+<!-- Este div es el wrapper que contiene todos los modales -->
+<div class="modal-wrapper">
+
+  <!-- BUCLE @FOR: Itera sobre cada modal activo -->
+  <!-- track modal.id: Angular usa el ID para identificar cada modal y optimizar el rendering -->
+  @for (modal of modalService.activeModals(); track modal.id) {
+
+  <!-- BACKDROP (Fondo oscuro del modal) -->
+  <!-- Cada modal tiene su propio backdrop semitransparente -->
+  <div class="modal-backdrop" [class.modal-backdrop-visible]="true" [style.z-index]="1000 + $index * 10"
+    (click)="onBackdropClick(modal.id, $event)">
+    <!--
+             EXPLICACIÓN DE ATRIBUTOS:
+             - [class.modal-backdrop-visible]: Agrega clase CSS para animación de entrada
+             - [style.z-index]: Z-index dinámico basado en el índice ($index)
+               * Primer modal: 1000, Segundo: 1010, Tercero: 1020, etc.
+               * Esto asegura que modales anidados aparezcan encima de sus padres
+             - (click): Al hacer clic en el backdrop, ejecuta onBackdropClick
+             -->
+
+    <!-- CONTENIDO DEL MODAL (Caja blanca central) -->
+    <div class="modal-content" [style.width]="getConfig(modal.id)?.width || '500px'"
+      [style.height]="getConfig(modal.id)?.height || 'auto'" [style.z-index]="1001 + $index * 10"
+      (click)="$event.stopPropagation()">
+      <!--
+               EXPLICACIÓN DE ATRIBUTOS:
+               - [style.width]: Ancho del modal desde config o default '500px'
+               - [style.height]: Alto del modal desde config o default 'auto'
+               - [style.z-index]: Un nivel encima del backdrop (1001, 1011, 1021...)
+               - (click)="$event.stopPropagation()": Evita que el clic se propague al backdrop
+                 * Sin esto, hacer clic dentro del modal lo cerraría
+               -->
+
+      <!-- BOTÓN DE CIERRE (X) -->
+      <!-- Solo se muestra si showCloseButton no es false en la config -->
+      @if (getConfig(modal.id)?.showCloseButton !== false) {
+      <button class="modal-close-btn" (click)="modal.close()">×</button>
+      }
+
+      <!-- CUERPO DEL MODAL -->
+      <!-- Este div es el contenedor donde se insertará el componente dinámico -->
+      <!-- #modalBody es una referencia de template que se usa en @ViewChild -->
+      <div class="modal-body" #modalBody></div>
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,57 @@
+/* estilos base */
+.alert {
+  position: absolute;
+  top:25px;
+  right: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .6rem 1rem;
+  border-radius: 0.5rem;
+  min-width: 240px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  transform-origin: center;
+  z-index: 2;
+  ;
+}
+
+/* variantes por tipo */
+.alert-info    { background: #eef2ff; color: #0b3bff; border: #0430df 2px solid}
+.alert-success { background: #ecfdf5; color: #047857; border: #03904c 2px solid}
+.alert-warning { background: #fff7ed; color: #bd5616; border: #ba5312 2px solid}
+.alert-error   { background: #fef2f2; color: #991b1b; border: #cb1111 2px solid}
+
+/* clase aplicada cuando el elemento entra */
+.alert-enter {
+  animation: alertIn 360ms ease-out forwards;
+}
+
+/* clase aplicada cuando el elemento sale */
+.alert-leave {
+  animation: alertOut 260ms ease-in forwards;
+}
+
+/* keyframes */
+@keyframes alertIn {
+  from { opacity: 0; transform: translateY(-8px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes alertOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-6px) scale(.98); }
+}
+
+/* botón cerrar */
+.alert-close {
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.alert-close:hover {
+  font-weight: bold;
+  scale: calc(1.1);
+}

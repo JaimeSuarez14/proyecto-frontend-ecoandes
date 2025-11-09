@@ -1,0 +1,23 @@
+<div>
+  <app-carousel-component />
+  <main class="p-6 bg-amber-100">
+    <h2 class="py-2 text-center font-extrabold text-4xl">Nuestros Cafes</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      @for (item of [1,2,3]; track $index) {
+        <div class="bg-amber-50 shadow-light shadow-amber-700 rounded-2xl overflow-hidden">
+          <div class="flex justify-center items-center">
+            <img class="h-auto lg:h-[264px] w-full object-cover" src="assets/img/cafe_organico.jpg" alt="">
+          </div>
+          <div class="p-3 flex flex-col items-center w-full">
+            <h2 class="py-2 text-center font-extrabold text-2xl font-Roboto text-yellow-900">Cafe Andino</h2>
+            <p class="text-center">Origen: Cusco - Notas frutales, acidez media, aroma intenso.</p>
+            <button class="my-2 py-1 px-2 bg-amber-900 hover:bg-amber-900/80 text-white rounded-md font-bold">Estoy Interesado</button>
+          </div>
+        </div>
+      }
+
+
+    </div>
+  </main>
+  <app-alert-component [tipo]="tipo()" [mensaje]="mensaje()" [(isVisible)]="esVisible" />
+</div>

@@ -1,0 +1,86 @@
+/* WRAPPER PRINCIPAL */
+    /* Capa fija que cubre toda la pantalla pero no bloquea interacciones */
+    .modal-wrapper {
+      position: fixed;        /* Posición fija respecto a la ventana del navegador */
+      top: 0;                 /* Alineado al borde superior */
+      left: 0;                /* Alineado al borde izquierdo */
+      width: 100%;            /* Ocupa todo el ancho */
+      height: 100%;           /* Ocupa todo el alto */
+      pointer-events: none;   /* No captura eventos de mouse (permite clic atravesar) */
+                              /* Los hijos con pointer-events: all sí capturarán eventos */
+    }
+
+    /* BACKDROP (Fondo oscuro semitransparente) */
+    .modal-backdrop {
+      position: fixed;                    /* Posición fija */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);  /* Negro con 50% de opacidad */
+      display: flex;                      /* Flexbox para centrar el contenido */
+      align-items: center;                /* Centra verticalmente */
+      justify-content: center;            /* Centra horizontalmente */
+      pointer-events: all;                /* Activa captura de eventos (revierte el none del padre) */
+      opacity: 0;                         /* Inicia invisible para animación */
+      animation: fadeIn 0.2s forwards;    /* Animación de aparición de 0.2 segundos */
+    }
+
+    /* ANIMACIÓN DE APARICIÓN */
+    /* El backdrop aparece gradualmente de 0 a 1 de opacidad */
+    @keyframes fadeIn {
+      to { opacity: 1; }  /* Estado final: completamente visible */
+    }
+
+    /* CONTENIDO DEL MODAL (Caja blanca) */
+    .modal-content {
+      background: white;                  /* Fondo blanco */
+      border-radius: 8px;                 /* Bordes redondeados */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra suave */
+      position: relative;                 /* Para posicionar el botón de cierre absolutamente */
+      max-width: 90vw;                    /* Máximo 90% del ancho de la ventana */
+      max-height: 90vh;                   /* Máximo 90% del alto de la ventana */
+      overflow: auto;                     /* Scroll si el contenido es muy grande */
+      transform: scale(0.9);              /* Inicia a 90% del tamaño para animación */
+      animation: scaleIn 0.2s forwards;   /* Animación de crecimiento */
+    }
+
+    /* ANIMACIÓN DE CRECIMIENTO */
+    /* El modal crece de 90% a 100% de su tamaño */
+    @keyframes scaleIn {
+      to { transform: scale(1); }  /* Estado final: tamaño completo */
+    }
+
+    /* BOTÓN DE CIERRE (X) */
+    .modal-close-btn {
+      position: absolute;           /* Posicionado respecto al modal-content */
+      top: 10px;                    /* 10px desde arriba */
+      right: 10px;                  /* 10px desde la derecha */
+      background: none;             /* Sin fondo */
+      border: none;                 /* Sin borde */
+      font-size: 28px;              /* Tamaño grande para el símbolo × */
+      cursor: pointer;              /* Cambia cursor a manita */
+      color: rgb(226, 75, 75);                  /* Color gris */
+      z-index: 1;                   /* Encima del contenido */
+      width: 30px;                  /* Ancho fijo */
+      height: 30px;                 /* Alto fijo */
+      display: flex;                /* Flexbox para centrar el símbolo */
+      align-items: center;          /* Centra verticalmente */
+      justify-content: center;      /* Centra horizontalmente */
+      border-radius: 4px;           /* Bordes ligeramente redondeados */
+      transition: all 0.2s;         /* Transición suave para hover */
+    }
+
+    /* HOVER DEL BOTÓN DE CIERRE */
+    .modal-close-btn:hover {
+      background-color: #f0f0f0;    /* Fondo gris claro al pasar el mouse */
+      color: red;
+      border: solid rgba(128, 128, 128, 0.74) 0.5px;
+      border-radius: 50%;                 /* Color más oscuro */
+    }
+
+    /* CUERPO DEL MODAL */
+    /* Contenedor del componente dinámico */
+    .modal-body {
+      padding: 1px;  /* Espacio interno de 20px en todos los lados */
+    }

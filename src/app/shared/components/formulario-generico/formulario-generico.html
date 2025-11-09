@@ -1,0 +1,69 @@
+<div class="flex  w-full justify-center ">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4 flex-1 max-w-lg p-5 border border-gray-300 bg-gray-100 dark:bg-gray-600 rounded-2xl">
+    @for (field of fields; track $index) {
+    <!-- Hidden -->
+    <input *ngIf="field.type === 'hidden'" type="hidden" [formControlName]="field.name" />
+
+    <!-- Text / Email / Tel -->
+    <div *ngIf="['text', 'email', 'tel'].includes(field.type)" class="flex flex-col">
+      <label [for]="field.name" class="font-semibold mb-1">
+        <i *ngIf="field.icon" class="{{ field.icon }} text-blue-600 mr-2"></i>{{ field.label }}
+      </label>
+      <input [type]="field.type" [id]="field.name" [placeholder]="'Ingrese su '+field.name"
+        [formControlName]="field.name" class="p-2 border text-black/80 dark:bg-gray-200  border-gray-300 rounded-lg bg-white" [required]="field.required!" />
+      <small class="text-red-500" *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
+        Campo inválido o requerido.
+      </small>
+    </div>
+
+    <!-- Password -->
+    @if (field.type === 'password') {
+    <div class="flex flex-col">
+      <label [for]="field.name" class="font-semibold mb-1">
+        @if (field.icon) {
+          <i  class="{{ field.icon }} text-blue-600 mr-2"></i>{{ field.label }}
+        }
+
+      </label>
+      <div class="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+        <input [type]="showPassword[field.name] ? 'text' : 'password'" [id]="field.name"
+          [placeholder]="field.placeholder" [formControlName]="field.name" class="flex-1 p-2 text-black focus:outline-none bg-white"
+          [required]="field.required!" />
+        <button type="button" class="p-2" (click)="togglePassword(field.name)">
+          <i class="bi" [ngClass]="showPassword[field.name] ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
+    </div>
+    }
+
+
+    <!-- Checkbox -->
+    <div *ngIf="field.type === 'checkbox'" class="flex items-center">
+      <input type="checkbox" [id]="field.name" [formControlName]="field.name" class="mr-2 text-black bg-white" />
+      <label [for]="field.name">{{ field.label }}</label>
+    </div>
+
+    <!-- Select -->
+    @if (field.type === 'select') {
+    <div *appHasRold="'ADMIN'">
+      <label [for]="field.name" class="font-semibold mb-1">
+        <i *ngIf="field.icon" class="{{ field.icon }} text-blue-600 mr-2"></i>{{ field.label }}
+      </label>
+      <select [id]="field.name" [formControlName]="field.name" class="p-2 border text-black border-gray-300 rounded-lg bg-white"
+        [required]="field.required!">
+        <option value="">-- Selecciona una opción --</option>
+        <option *ngFor="let option of field.options" [value]="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    }
+
+
+    }
+
+    <button type="submit" [disabled]="form.invalid"
+      class="w-full py-3 px-4 rounded-lg bg-green-500 text-white font-bold text-lg hover:bg-green-600 disabled:opacity-50">
+      <i class="bi bi-person-plus mr-2"></i> {{ submitButtonText }}
+    </button>
+  </form>
+
+</div>

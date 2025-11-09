@@ -1,0 +1,88 @@
+<main class="bg-fondo-claro dark:bg-amber-950 flex flex-col min-h-screen">
+
+  <section class="container mx-auto px-4 my-8 dark:text-white">
+    <section id="nosotros">
+      <div class="bg-fondo-semiclaro dark:bg-fondo-semiclaro/20 p-10 rounded-xl shadow-xl">
+        <p class="font-semibold text-green-500">Colaboradores actuales: 78</p>
+        <h2 class="text-center mb-4 text-3xl font-bold text-fondo-normal dark:text-white/50">Bienvenido a EcoAndes Café</h2>
+        <p class="text-lg">En EcoAndes Café, no solo cultivamos café, cultivamos sueños. Nacidos en el corazón de los
+          Andes peruanos, llevamos a tu taza un café orgánico, sostenible y lleno de historia.</p>
+        <img src="assets/img/cafe_montañas.jpg" alt="Café EcoAndes en las montañas"
+          class="w-full rounded-xl my-4 border-4 border-gray-200 mx-auto block" />
+
+        <h3 class="mt-8 text-fondo-normal/80  font-bold text-2xl dark:text-blue-300">Nuestra Historia</h3>
+        <p>Desde 2018, un grupo de agricultores del Valle Sagrado, en Cusco, se unió con un propósito: compartir con el
+          mundo un café único, cultivado con respeto por la tierra y con amor por nuestras raíces. Así nació EcoAndes
+          Café.</p>
+        <p>Lo que empezó como una pequeña finca hoy es una marca reconocida que lleva café de alta calidad a miles de
+          hogares en todo el mundo.</p>
+
+        <h3 class="mt-8 text-fondo-normal/80  font-bold text-2xl dark:text-blue-300">Un Café que Despierta los Sentidos</h3>
+        <p>Disfruta de un café con notas de chocolate amargo, nuez y un toque afrutado. Nuestro proceso de cultivo
+          orgánico garantiza una experiencia natural, sin químicos ni pesticidas, manteniendo la pureza del grano y el
+          respeto por el medio ambiente.</p>
+
+        <div class=" text-white rounded-xl  mt-10">
+          <div class="flex flex-col md:flex-row md:space-x-8 gap-3">
+            <div class="w-full md:w-1/2  bg-fondo-subtitulo dark:bg-fondo-claro dark:text-black p-8">
+              <h4 class="text-xl font-bold dark:text-blue-600 ">Misión</h4>
+              <p class="text-base">Ofrecer una taza de café que deleite e inspire, apoyando comunidades cafetaleras y
+                fomentando la sostenibilidad ambiental.</p>
+            </div>
+            <div class="w-full md:w-1/2 mt-4 md:mt-0  bg-fondo-subtitulo dark:bg-fondo-claro dark:text-black p-8">
+              <h4  class="text-xl font-bold dark:text-blue-600 ">Visión</h4>
+              <p class="text-base">Ser líderes globales en café orgánico, construyendo una comunidad que valore la
+                calidad, el impacto positivo y el comercio justo.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="mt-8 mb-4 text-center text-fondo-normal font-Caveat underline font-bold text-2xl dark:text-blue-300 ">Nuestros Valores</h3>
+        <div class="flex flex-wrap justify-center gap-4" >
+
+          @for (valor of valores; track $index) {
+          <div
+            class="bg-fondo-suave  dark:bg-black dark:text-fondo-claro text-fondo-subtitulo transition-all duration-300 ease-in-out hover:bg-fondo-subtitulo hover:text-white hover:scale-105 cursor-pointer rounded-lg shadow-md px-6 py-6 border border-gray-200"
+            style="min-width: 150px; max-width: 180px;">
+            <div class="text-center">
+              <i [class]="'bi text-4xl mb-2 valor-icono ' + valor.icono"></i>
+              <h6 class="text-lg font-semibold mt-2">
+                <span>{{valor.nombre}}</span>
+              </h6>
+            </div>
+          </div>
+          }
+        </div>
+
+        <h3 class="mt-8 text-fondo-normal dark:text-blue-300 font-bold">Nuestro Impacto Social</h3>
+        <p>Tu elección marca la diferencia. Con cada compra apoyas a pequeños agricultores andinos, generas
+          oportunidades, fomentas la educación agrícola sostenible y promueves un modelo justo de comercio.</p>
+
+        <h3 class="mt-8 mb-4 text-fondo-normal dark:text-blue-300  font-bold">Testimonios de Nuestros Clientes</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 testimonial">
+          <div class="bg-fondo-suave h-full rounded-xl dark:bg-fondo-normal text-gray-700 dark:text-white shadow-fondo-normal shadow-light p-6">
+            <p class="">"EcoAndes Café es, sin duda, el mejor café que he probado. El sabor es
+              inconfundible, y saber que cada taza contribuye al bienestar de los agricultores lo hace aún más
+              especial."</p>
+            <div class="text-right mt-4 dark:text-gray-200 text-sm text-gray-500">– Ana R.</div>
+          </div>
+          <div class="bg-fondo-suave  h-full dark:bg-fondo-normal text-gray-700 dark:text-white rounded-xl shadow-fondo-normal shadow-light p-6">
+            <p class="">"Soy un amante del café y nunca imaginé que el café orgánico pudiera tener un sabor
+              tan puro y delicioso. ¡EcoAndes Café ha conquistado mi corazón!"</p>
+            <div class="text-right dark:text-gray-200 mt-4 text-sm text-gray-500">– Carlos M.</div>
+          </div>
+          <div class="bg-fondo-suave  h-full dark:bg-fondo-normal text-gray-700 dark:text-white rounded-xl shadow-fondo-normal shadow-light  p-6">
+            <p class="">"No solo compro un gran café, también apoyo una causa social. EcoAndes representa
+              lo que el mundo necesita: productos con propósito."</p>
+            <div class="text-right mt-4 dark:text-gray-200 text-sm text-gray-500">– Mariana G.</div>
+          </div>
+          <div class="bg-fondo-suave  h-full dark:bg-fondo-normal text-gray-700 dark:text-white rounded-xl shadow-fondo-normal shadow-light p-6">
+            <p class="">"Su compromiso con el medio ambiente y las comunidades rurales me convenció. El
+              sabor es excelente y el impacto real."</p>
+            <div class="text-right mt-4 dark:text-gray-200 text-sm text-gray-500">– Javier T.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</main>

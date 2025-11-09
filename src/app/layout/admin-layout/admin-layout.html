@@ -1,0 +1,206 @@
+<div class="flex w-full h-screen bg-[#f5f6fa]">
+  <!-- Sidebar -->
+  <aside
+    [class]="'fixed top-0  bottom-0 z-51 text-black dark:text-white bg-blue-300 dark:bg-black transition-all duration-300 ease ' +  (sidebarCollapsed ? '-left-16 sm:left-0 sm:w-16' : 'left-0 sm:left-0 sm:w-[250px]')">
+    <div [class]="'flex items-center justify-between border-b-2 border-white/20 ' + (sidebarCollapsed ? 'p-0.5 gap-0.5' : 'p-2 gap-2')">
+      <a class="hidden sm:inline" routerLink="/">
+        <img src="assets/img/Andes_Cafe.png" alt="Logo" [class]="'' + (sidebarCollapsed ? ' h-auto' : 'h-7 w-auto')">
+      </a>
+      <h3 *ngIf="!sidebarCollapsed" class="m-0 text-lg font-bold">EcoAndes</h3>
+      <button class="cursor-pointer text-lg p-1 rounded-full hover:bg-white/20" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <nav [class]="' '+ (sidebarCollapsed ? 'sm:p-2' : 'p-4')">
+      <a routerLink="/admin"
+        [class]="'flex relative group items-center gap-3 py-2 transition-colors duration-300 ease-in-out border-none sm:border-l-2 dark:border-amber-100 hover:bg-blue-900/40 mb-2 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+        routerLinkActive="font-bold text-blue-700 bg-blue-900/20 dark:text-green-400 border-none sm:border-y-2 border-green-400"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-tachometer-alt text-center"></i>
+        @if(!sidebarCollapsed){
+        <span>Dashboard</span>
+        }@else {
+        <app-popover contenido="Dashboard" />
+        }
+      </a>
+
+      <a *appHasRold="'ADMIN'" routerLink="/admin/usuarios"
+        [class]="'group relative flex items-center gap-3 py-2 transition-colors duration-300 ease-in-out border-none sm:border-l-2 dark:border-amber-100 hover:bg-blue-900/40 mb-2 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+        routerLinkActive="font-bold text-blue-700 bg-blue-900/20 dark:text-green-400 border-none sm:border-y-2 border-green-400">
+        <i class="fas fa-users text-center"></i>
+        @if(!sidebarCollapsed){
+        <span>Usuarios</span>
+        }@else {
+        <app-popover contenido="Usuarios" />
+        }
+      </a>
+
+      <a *appHasRold="'ADMIN'" routerLink="/admin/consultas"
+        [class]="'group relative flex items-center gap-3 py-2 transition-colors duration-300 ease-in-out border-none sm:border-l-2 dark:border-amber-100 hover:bg-blue-900/40 mb-2 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+        routerLinkActive="font-bold text-blue-700 bg-blue-900/20 dark:text-green-400 border-none sm:border-y-2 border-green-400">
+        <i class="fas fa-tasks text-center"></i>
+        @if(!sidebarCollapsed){
+        <span>Consultas</span>
+        }@else {
+        <app-popover contenido="Consultas" />
+        }
+      </a>
+
+      <a *appHasRold="'ADMIN'" routerLink="/admin/mensajes"
+        [class]="'group relative flex items-center gap-3 py-2 transition-colors duration-300 ease-in-out border-none sm:border-l-2 dark:border-amber-100 hover:bg-blue-900/40 mb-2 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+        routerLinkActive="font-bold text-blue-700 bg-blue-900/20 dark:text-green-400 border-none sm:border-y-2 border-green-400">
+        <i class="fa-regular fa-message text-center"></i>
+        @if(!sidebarCollapsed){
+        <span>Mensajes</span>
+        }@else {
+        <app-popover contenido="Mensajes" />
+        }
+      </a>
+
+      <a *appHasRold="'ADMIN'" routerLink="/admin/productos"
+        [class]="'group relative flex items-center gap-3 py-2 transition-colors duration-300 ease-in-out border-none sm:border-l-2 dark:border-amber-100 hover:bg-blue-900/40 mb-2 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+        routerLinkActive="font-bold text-blue-700 bg-blue-900/20 dark:text-green-400 border-none sm:border-y-2 border-green-400">
+        <i class="fas fa-building text-center"></i>
+        @if(!sidebarCollapsed){
+        <span>Productos</span>
+        }@else {
+
+        <app-popover contenido="Productos" />
+
+        }
+      </a>
+
+      <div class="group">
+        <a routerLink="/admin/configuración"
+          [class]="'flex relative items-center gap-3 py-2 transition-colors duration-300 ease-in-out border-none sm:border-l-2 dark:border-amber-100 hover:bg-blue-900/40 mb-2 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+          routerLinkActive="font-bold text-blue-700 bg-blue-900/20 dark:text-green-400 border-none sm:border-y-2 border-green-400">
+          <i class="bi bi-gear text-center"></i>
+          @if(!sidebarCollapsed){
+          <span>Configuración</span>
+          <i
+            class="fa-solid fa-angle-up rotate-90 group-hover:rotate-180 transition-transform duration-700 ease-in-out"></i>
+          }@else {
+          <app-popover contenido="Configuración" />
+          }
+        </a>
+        <div
+          class="max-h-0 group-hover:max-h-[500px] invisible group-hover:visible  flex flex-col transition-all duration-700 ease-in-out">
+          <a routerLink="/admin/configuración"
+            [class]="'flex group relative items-center gap-2 ml-1 py-1 transition-colors duration-300 ease-in-out  hover:text-amber-200 mb-2 hover:border text-sm hover:border-amber-50/50 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+            routerLinkActive="font-bold text-green-400 border-y-2 border-green-400"><i
+              class="fa-regular fa-circle-user"></i>
+            @if(!sidebarCollapsed){
+            <span>Perfil</span>
+            }@else {
+            <app-popover contenido="Perfil" />
+            }
+          </a>
+
+
+          <a routerLink="/admin/configuración"
+            [class]="'flex group relative items-center gap-2 ml-1 py-1 transition-colors duration-300 ease-in-out  hover:text-amber-200 mb-2 hover:border text-sm hover:border-amber-50/50 ' + (sidebarCollapsed ? ' justify-center w-full' : 'px-4')"
+            routerLinkActive="font-bold text-green-400 border-y-2 border-green-400"><i
+              class="fa-solid fa-screwdriver-wrench"></i>
+            @if(!sidebarCollapsed){
+            <span>General</span>
+            }@else {
+            <app-popover contenido="General" />
+            }
+          </a>
+
+        </div>
+      </div>
+      <button type="button"
+        [class]="'group flex border border-red-500 bg-red-500 dark:bg-transparent text-white rounded-2xl relative items-center gap-2 py-1 transition-colors duration-300 ease-in-out dark:text-red-500 hover:bg-red-400/50  mb-2 ' + (sidebarCollapsed ? 'justify-center w-full' : 'px-4')"
+        routerLinkActive="font-bold text-amber-700 dark:text-green-400 border-y-2 border-green-400"
+        (click)="authService.logout()">
+        <i class="fa-solid fa-sign-out-alt text-center">
+        </i>
+        @if(!sidebarCollapsed){
+        <span>Cerrar sesión</span>
+        }@else {
+        <app-popover contenido="Cerrar Sesión" />
+
+        }
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main content area -->
+  <div [class]="'flex flex-1 flex-col z-49 transition-all duration-300 ease-in sm:ml-16 ' +
+           (!sidebarCollapsed ? ' sm:ml-[250px]' : '')">
+    <!-- Top bar -->
+    <header
+      class="relative py-4 px-2 dark:bg-gray-500 dark:text-gray-50 flex flex-col md:flex-row  justify-between items-center shadow-lg">
+      <button
+        class="inline absolute top-9 left-0 sm:hidden cursor-pointer text-lg p-1 rounded-full hover:bg-black/10 dark:hover:bg-white/20"
+        (click)="toggleSidebar()">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+      <div class="top-bar-left">
+        <h2 class="text-2xl text-amber-900 dark:text-gray-300 font-bold">{{ 'Panel de '+getPageTitle()}}</h2>
+      </div>
+
+      <section class="flex gap-2 items-center">
+        <button type="button" title="Cambiar Tema"
+          class="block py-0.5 px-2 border-2 border-gray-300 dark:border-gray-400/50 hover:bg-gray-400/30 rounded-2xl cursor-pointer transition duration-300 "
+          (click)="sessionService.cambiarTema()">
+          @if (sessionService.isDark$()) {
+          <i class="bi bi-sun"></i>
+          }@else {
+          <i class="bi bi-moon-stars-fill"></i>
+          }
+        </button>
+        <div
+          class="group flex items-center gap-4 p-1 border border-transparent rounded-xl hover:bg-amber-50/80 dark:hover:bg-black/20 dark:hover:border-black hover:border hover:border-amber-300 relative">
+
+          <div
+            class="w-8 h-8 text-lg rounded-full border bg-amber-800/10 border-amber-500 dark:border-gray-400 flex justify-center items-center">
+            <i class="fa-solid fa-user-tie text-amber-950 dark:text-white"></i>
+          </div>
+          <div class="flex flex-col items-end ">
+            <span class="font-bold text-amber-800 dark:text-white p-0 m-0">{{authService.currentUserAuth$()?.username |
+              titlecase}}</span>
+            <span
+              class="text-xs font-bold text-gray-400 dark:text-green-300 uppercase m-0 p-0">{{authService.currentUserAuth$()?.rol}}</span>
+          </div>
+          <div
+            class="px-0.5 border-2 border-gray-200 h-[39px] flex justify-center items-center rounded-md cursor-pointer group-hover:border-gray-500/50 ">
+            <i class="bi bi-caret-down-fill transform duration-300 transition-transform group-hover:rotate-90"></i>
+          </div>
+          <div
+            class="absolute w-64 rounded-md  top-12 max-h-0 right-0 group-hover:max-h-[500px] bg-amber-50 overflow-hidden transition-all duration-400 ease-in-out text-amber-900 z-50">
+            <div
+              class="p-2 border-2 border-amber-400 bg-amber-300/50 transition-all duration-400 ease-in-out flex flex-col gap-1 items-start">
+              <a routerLink="/admin/perfil-login"
+                class=" text-black py-0.5 w-full px-1 text-left rounded-lg cursor-pointer hover:bg-white/50  transition-colors duration-200 ease-in text-sm font-bold ">
+                <i class="bi bi-person-bounding-box text-white p-1 mr-2 rounded-md bg-blue-500"></i>
+                Ver Perfil
+              </a>
+              <a routerLink="/admin/actualizar-perfil"
+                class=" text-black py-0.5 w-full px-1 text-left rounded-lg cursor-pointer hover:bg-white/50 transition-colors duration-200 ease-in text-sm font-bold ">
+                <i class="bi bi-arrow-clockwise text-white p-1 mr-2 rounded-md bg-yellow-500"></i>
+                Actualizar Perfil
+              </a>
+              <button
+                class=" text-black py-0.5 w-full px-1 text-left rounded-lg cursor-pointer hover:bg-white/50 transition-colors duration-200 ease-in text-sm font-bold "
+                (click)="authService.logout()">
+                <span class=" text-white p-0.5 mr-2 rounded-md bg-red-500"><i
+                    class="fas fa-sign-out-alt text-sm"></i></span>
+
+                Salir
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </header>
+
+    <!-- Page content -->
+    <main class="flex-1 overflow-y-scroll dark:bg-gray-950 dark:text-white">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<!-- usamos *ngIf para que el elemento entre/salga del DOM -->
+<!-- animate.enter/animate.leave aplican clases mientras dura la animación -->
+@if (isVisible()) {
+<div class="alert alert-{{tipo()}}" role="alert" aria-live="assertive"
+  animate.enter="alert-enter"
+  animate.leave="alert-leave">
+  <div>
+    <i class="bi bi-info-circle mr-1"></i>
+  <span class="alert-message">{{ mensaje() }}</span>
+  </div>
+  <button type="button" class="alert-close" aria-label="Cerrar alerta" (click)="close()">✕</button>
+</div>
+}

@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+@import "tailwindcss";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+@theme {
+  --font-Caveat: "Caveat", cursive;
+  --font-Roboto: "Roboto", sans-serif;
+  --font-Poppins: "Poppins", sans-serif;
+  --shadow-light: 0 0 10px rgba(0, 0, 0, 0.25);
+  --color-fondo-normal: #4e342e;
+  --color-fondo-subtitulo: #6d4c41;
+  --color-fondo-claro: #f4e1c1;
+  --color-fondo-suave: #fff8f0;
+  --color-fondo-semiclaro: #fff9f0;
+  --color-fondo-vibrante: #f3e5ab;
+  --color-azul-oscuro: #003366;
+  --color-verde-turquesa: #00b894;
+  --color-transparent-white: "rgba(255, 255, 255, 0.8)";
+
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
+    }
+  }
+}

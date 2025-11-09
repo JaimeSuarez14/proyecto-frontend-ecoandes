@@ -1,0 +1,8 @@
+<app-subtitulo-dashboard titulo="Actualizar Perfil"/>
+<app-formulario-generico [fields]="fields" submitButtonText="Actualizar"
+  (formSubmit)="onFormSubmit($event)" [machValue]="authService.currentUserAuth$()"/>
+<input type="tel">
+@if(userService.errorMessage()){
+  <p>{{userService.errorMessage()}}</p>
+}
+<app-alert-confirmacion tipoId="warning"/>

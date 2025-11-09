@@ -1,0 +1,32 @@
+@if (model.visible()) {
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" (click)="model.cancelar()"></div>
+  <div
+    class="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-700 transform transition-all animate-fade-in">
+    <div [class]="'absolute top-0 left-0 right-0 h-1 bg-gradient-to-r '+(alertaSeleccionado().colors.gradient)"></div>
+
+    <div class="p-8">
+      <div class="flex flex-col items-center text-center">
+        <div [class]="`w-20 h-20 rounded-full ${alertaSeleccionado().colors.bg} flex items-center justify-center mb-6 shadow-lg`">
+          <i [class]="` text-6xl ${alertaSeleccionado().icon} ${alertaSeleccionado().colors.icon}`"></i>
+        </div>
+
+        <h3 class="text-2xl font-bold text-white mb-3">{{alertaSeleccionado().title}}</h3>
+        <p class="text-gray-300 text-base leading-relaxed mb-4">{{ model.mensaje()}}</p>
+        <p class="text-gray-300 text-xs leading-relaxed mb-8">{{ alertaSeleccionado().message }}</p>
+
+        <div class="flex gap-3 w-full">
+          <button  (click)="model.cancelar()"
+            class="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-semibold transition-all duration-200 transform hover:scale-105">
+            Cancelar
+          </button>
+          <button (click)="model.aceptar()"
+            [class]="`flex-1 px-6 py-3 bg-gradient-to-r ${alertaSeleccionado().colors.gradient} text-white rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg ${alertaSeleccionado().colors.button}`">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

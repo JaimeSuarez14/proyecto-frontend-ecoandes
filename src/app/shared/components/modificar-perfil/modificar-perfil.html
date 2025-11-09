@@ -1,0 +1,103 @@
+<div class="p-6 bg-gradient-to-br from-blue-900 via-blue-950 to-slate-900 text-white border-b-3 border-white rounded-b-xl shadow-lg">
+  <h2 class="text-3xl py-3 font-extrabold text-center tracking-wide text-blue-100 drop-shadow-sm">{{titulo}}</h2>
+
+  <p class="border border-green-600 bg-green-100 text-green-800 p-3 my-4 rounded-xl shadow-sm flex items-center gap-2">
+    <i class="bi bi-info-circle text-green-700 text-lg"></i>{{primerMensaje}}
+  </p>
+
+  @let hayEspacio = valueInput().trim().length >= 6;
+
+  <div [class]="'mb-6 flex p-4 gap-4 shadow-lg shadow-blue-200 text-black bg-white rounded-2xl '+(verificarName ? 'flex-col justify-center items-center max-w-md mx-auto':'w-full')">
+
+    <div [class]="'flex-1 ' +(verificarName && 'w-full')">
+      <label for="celular" class="block text-gray-800 font-semibold mb-2 text-sm tracking-wide">
+        <i class="bi bi-phone mr-2 text-blue-600"></i>{{name | titlecase}}
+      </label>
+
+      <div class="flex gap-3 relative">
+        <input [type]="name==='celular'?'tel':'password'" id="celular" [(ngModel)]="valueInput" [name]="name"
+          class="w-full border border-gray-300 text-gray-900 bg-gray-50 placeholder:text-gray-400 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          [placeholder]="name==='celular'?'Ingrese su número de celular':'Ingrese su contraseña'" minlength="4" required
+          noSpaces #nameValue="ngModel">
+
+        @if(!verificarName){
+        <button [disabled]="nameValue.invalid || !hayEspacio" (click)="checkInput()" type="button"
+          class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700 transition duration-300 ease-in-out text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
+          Verificar
+        </button>
+        }
+
+        @if(matchInputs()){
+        <span class="absolute top-1 right-1 text-2xl text-green-600">
+          <i class="bi bi-check-circle"></i>
+        </span>
+        }
+      </div>
+
+      @if ((nameValue.invalid || !hayEspacio) && (nameValue.dirty || nameValue.touched)) {
+      <div class="text-sm font-semibold text-red-600 mt-2 space-y-1">
+        @if (nameValue.hasError('required')) {
+        <div>El {{name}} es requerido</div>
+        }
+        @if (nameValue.hasError('minlength')) {
+        <div>Debe contener más caracteres</div>
+        }
+        @if (!hayEspacio) {
+        <div class="text-red-500/70">No debe contener espacios vacíos, mínimo 6 caracteres</div>
+        }
+      </div>
+      }
+    </div>
+
+    @let hayEspacioVerif = secondvalueInput().trim().length > 0;
+
+    @if(verificarName){
+    <div [class]="'flex-1 ' +(verificarName && 'w-full')">
+      <label for="verificar" class="block font-semibold mb-2 text-sm tracking-wide text-gray-800">
+        <i class="bi bi-phone text-blue-600 mr-2"></i>Confirmar {{name | titlecase}}
+      </label>
+      <p class="text-xs text-gray-500 mb-1">Repita el {{name}} para confirmar</p>
+
+      <div class="flex gap-3 relative">
+        <input [type]="name==='celular'?'tel':'password'" id="verificar" [(ngModel)]="secondvalueInput"
+          [name]="verificarName"
+          class="w-full border border-gray-300 text-gray-900 bg-gray-50 placeholder:text-gray-400 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+          [placeholder]="name==='celular'?'Ingrese nuevamente su número de celular':'Ingrese nuevamente su contraseña'" minlength="4" required #verificarValue="ngModel">
+
+        @if(matchInputs()){
+        <span class="absolute top-1 right-1 text-2xl text-green-600">
+          <i class="bi bi-check-circle"></i>
+        </span>
+        }
+      </div>
+
+      @if ((verificarValue.invalid || !hayEspacioVerif) && (verificarValue.dirty || verificarValue.touched)){
+      <div class="text-sm font-semibold text-red-600 mt-2 space-y-1">
+        @if (verificarValue.hasError('required')) {
+        <div>El confirmar {{name}} es requerido</div>
+        }
+        @if (verificarValue.hasError('minlength')) {
+        <div>Debe contener más caracteres</div>
+        }
+        @if (!hayEspacioVerif) {
+        <div class="text-red-500/70">No debe contener espacios vacíos</div>
+        }
+      </div>
+      }
+    </div>
+    }
+
+    @if(matchInputs()){
+    <p class="italic font-medium text-sm text-left w-full text-blue-600 mt-2">** Ambas contraseñas deben ser iguales</p>
+    }
+
+    @if(verificarName){
+    <div class="flex mt-4">
+      <button [disabled]="nameValue.invalid || !hayEspacio || !hayEspacioVerif || !matchInputs()" (click)="checkInput()" type="button"
+        class="py-3 px-5 rounded-lg bg-green-600 text-white font-bold text-base hover:bg-green-700 transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+        Registrar
+      </button>
+    </div>
+    }
+  </div>
+</div>

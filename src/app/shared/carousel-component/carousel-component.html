@@ -1,0 +1,13 @@
+<div class="relative w-full mx-auto overflow-hidden">
+  <div class="flex transition-transform duration-700 ease-in-out" [style.transform]="'translateX(-' + currentIndex() * 100 + '%)'">
+    <img *ngFor="let image of images" [src]="image" class=" object-cover w-full h-[500px] flex-shrink-0" />
+  </div>
+
+  <!-- Botones -->
+  <button (click)="prev()" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/20 p-2 rounded-full shadow hover:bg-gray-200">
+    ◀
+  </button>
+  <button (click)="next()" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/20 p-2 rounded-full shadow hover:bg-gray-200">
+    ▶
+  </button>
+</div>

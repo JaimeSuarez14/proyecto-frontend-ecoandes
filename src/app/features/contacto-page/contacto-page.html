@@ -1,0 +1,150 @@
+<main class="bg-fondo-claro dark:bg-fondo-normal flex flex-col min-h-screen scroll-smooth ">
+  <div class="container mx-auto md:px-8 my-8">
+    <section id="contacto">
+      <div
+        class="bg-fondo-semiclaro dark:bg-fondo-subtitulo dark:shadow-light dark:shadow-amber-950 p-8 rounded-xl shadow-xl ">
+        <div class="flex justify-center w-full  ">
+          <div class="md:max-w-xl lg:max-w-2xl bg-fondo-claro/50 rounded-2xl p-4">
+            <h2 class="text-center mb-4 text-fondo-normal text-3xl font-bold dark:text-fondo-suave">Contáctanos</h2>
+            <p class="text-lg text-center leading-relaxed dark:text-white">
+              ¿Tienes preguntas, sugerencias o deseas más información? Estamos encantados de atenderte. ¡Conversemos!
+            </p>
+
+            <div class="space-y-3 my-6">
+              <p class="flex items-center text-gray-700">
+                <i class="fas fa-phone text-fondo-subtitulo  mr-2"></i>
+                <strong>Teléfono:</strong> <span class="ml-2 dark:text-white" >+51 933803345</span>
+              </p>
+              <p class="flex items-center text-gray-700">
+                <i class="fas fa-envelope text-fondo-subtitulo mr-2"></i>
+                <strong>Correo electrónico:</strong> <span class="ml-2 dark:text-white"
+                  >ventas@ecoandescafe.com</span>
+              </p>
+              <p class="flex items-center text-gray-700">
+                <i class="fas fa-map-marker-alt text-fondo-subtitulo mr-2"></i>
+                <strong>Dirección:</strong> <span class="ml-2 dark:text-white" >Calle Aromas del Valle 456, Cusco,
+                  Perú</span>
+              </p>
+            </div>
+
+            <div class="flex justify-around mb-6">
+              <a href="https://web.facebook.com/?locale=es_LA&_rdc=1&_rdr#" target="_blank"
+                class="text-fondo-normal text-2xl transition-colors duration-300 bg-amber-200 hover:text-black border border-amber-400 hover:bg-white  rounded-2xl py-3 px-5">
+                <i class="fab fa-facebook-square"></i>
+              </a>
+              <a href="https://www.instagram.com" target="_blank"
+                class="text-fondo-normal text-2xl transition-colors duration-300 bg-amber-200 hover:bg-white  hover:text-black border border-amber-400 rounded-2xl py-3 px-5">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjAzIiYhOiPAxWwGLkGHWedMmgQFnoECAwQAQ&url=https%3A%2F%2Fwww.whatsapp.com%2F%3Flang%3Des_LA&usg=AOvVaw1p9u-k6NGHZLp1fns5M8XW&opi=89978449"
+                target="_blank"
+                class="text-fondo-normal text-2xl transition-colors duration-300 bg-amber-200 hover:bg-white  hover:text-black border border-amber-400 rounded-2xl py-3 px-5">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <h3 class="my-4 text-center text-2xl font-bold text-fondo-normal dark:text-fondo-semiclaro">Envíanos un mensaje</h3>
+
+        <div class="flex justify-center w-full">
+          <form class="w-full md:max-w-xl lg:max-w-2xl md:w-full hover:scale-[1.01] bg-fondo-claro dark:bg-fondo-vibrante p-4 rounded-2xl transition-transform duration-300">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="mb-4">
+                <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre completo</label>
+                <input type="text"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1"
+                  id="nombre" th:field="*{nombre}" th:placeholder="${placeholderNombre}" />
+                <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="correo" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                <input type="email"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1"
+                  id="correo" th:field="*{correo}" th:placeholder="${placeholderCorreo}" />
+                <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}">
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="mb-4">
+                <label for="telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                <input type="text"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1 placeholder:text-sm placeholder:text-gray-500"
+                  id="telefono" th:field="*{telefono}" placeholder="Ej: 987654321" />
+                <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="edad" class="block text-sm font-medium text-gray-700">Edad</label>
+                <input type="number"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1 placeholder:text-sm placeholder:text-gray-500"
+                  id="edad" th:field="*{edad}" placeholder="Ingrese su edad" min="18" max="99" />
+                <div class="text-red-500 text-sm mt-1"></div>
+              </div>
+              <div class="mb-4">
+                <label for="tipoConsulta" class="block text-sm font-medium text-gray-700">Tipo de consulta</label>
+                <select
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1"
+                  id="tipoConsulta">
+                  <option class="text-sm text-gray-500" value="" disabled selected>Selecciona una opción</option>
+                  <option value="Consulta">Consulta</option>
+                  <option value="Pedido">Pedido</option>
+                  <option value="Sugerencia">Sugerencia</option>
+                </select>
+
+              </div>
+            </div>
+
+
+
+            <div class="mb-4">
+              <label for="asunto" class="block text-sm font-medium text-gray-700">Asunto</label>
+              <input type="text"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1 placeholder:text-sm placeholder:text-gray-500"
+                id="asunto" th:field="*{asunto}" placeholder="Consulta, pedido, sugerencia..." />
+              <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('asunto')}" th:errors="*{asunto}"></div>
+            </div>
+
+            <div class="mb-4">
+              <label for="mensaje" class="block text-sm font-medium text-gray-700">Mensaje</label>
+              <textarea
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-amber-50 focus:border-fondo-subtitulo focus:ring focus:ring-fondo-subtitulo focus:ring-opacity-50 px-2 py-1 placeholder:text-sm placeholder:text-gray-500"
+                id="mensaje" th:field="*{mensaje}" rows="5" placeholder="Escribe tu mensaje aquí..."></textarea>
+              <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('mensaje')}" th:errors="*{mensaje}">
+              </div>
+            </div>
+
+            <div class="flex items-center mb-4">
+              <input class="h-4 w-4 text-fondo-subtitulo border-gray-300 rounded focus:ring-fondo-subtitulo" type="checkbox"
+                id="aceptaTerminos" th:field="*{aceptaTerminos}" />
+              <label class="ml-2 block text-sm text-gray-900" for="aceptaTerminos">
+                Acepto los términos y condiciones
+              </label>
+              <div class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('aceptaTerminos')}"
+                th:errors="*{aceptaTerminos}"></div>
+            </div>
+
+            <div class="text-right">
+              <button type="submit"
+                class="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-fondo-subtitulo hover:bg-[#5d4037] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-fondo-subtitulo">
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div th:if="${param.exito}"
+          class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4">
+          ¡Mensaje enviado correctamente!
+        </div>
+      </div>
+      <div class="my-6">
+        <h2>Mapa</h2>
+        <iframe th:src="${mapaEmbed}" width="100%" height="300" style="border:0;" allowfullscreen loading="lazy"
+          class="rounded-xl shadow-xl"></iframe>
+      </div>
+    </section>
+  </div>
+</main>

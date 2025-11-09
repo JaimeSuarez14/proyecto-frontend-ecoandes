@@ -1,0 +1,13 @@
+<div class="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transition-colors duration-300">
+  <!-- Ícono de usuario -->
+  <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-full text-blue-800 dark:text-blue-300">
+    <i [class]="icono() +' w-6 h-6 text-2xl'"></i>
+  </div>
+  <!-- Información del usuario -->
+  <div>
+    <p class="text-sm text-gray-500 dark:text-gray-400 tracking-wide">{{title()}}</p>
+    <p class="text-lg font-semibold text-gray-800 dark:text-white">{{propiedad()}}</p>
+    <!--para recibir contenido html dentro-->
+    <ng-content></ng-content>
+  </div>
+</div>
