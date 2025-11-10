@@ -1,8 +1,8 @@
 @if (model.visible()) {
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="fixed inset-0 z-60 flex items-center justify-center p-4" animate.leave="animate-fade-out">
   <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" (click)="model.cancelar()"></div>
   <div
-    class="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-700 transform transition-all animate-fade-in">
+    class="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden border border-gray-700 transform transition-all " animate.enter="animate-fade-in" >
     <div [class]="'absolute top-0 left-0 right-0 h-1 bg-gradient-to-r '+(alertaSeleccionado().colors.gradient)"></div>
 
     <div class="p-8">

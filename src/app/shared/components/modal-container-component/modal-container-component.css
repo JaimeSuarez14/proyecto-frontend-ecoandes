@@ -23,7 +23,7 @@
       justify-content: center;            /* Centra horizontalmente */
       pointer-events: all;                /* Activa captura de eventos (revierte el none del padre) */
       opacity: 0;                         /* Inicia invisible para animación */
-      animation: fadeIn 0.2s forwards;    /* Animación de aparición de 0.2 segundos */
+      animation: fadeIn 0.4s forwards;    /* Animación de aparición de 0.2 segundos */
     }
 
     /* ANIMACIÓN DE APARICIÓN */
@@ -45,6 +45,7 @@
       animation: scaleIn 0.2s forwards;   /* Animación de crecimiento */
     }
 
+
     /* ANIMACIÓN DE CRECIMIENTO */
     /* El modal crece de 90% a 100% de su tamaño */
     @keyframes scaleIn {
@@ -58,12 +59,12 @@
       right: 10px;                  /* 10px desde la derecha */
       background: none;             /* Sin fondo */
       border: none;                 /* Sin borde */
-      font-size: 28px;              /* Tamaño grande para el símbolo × */
+      font-size: 20px;              /* Tamaño grande para el símbolo × */
+      font-weight: bold;
       cursor: pointer;              /* Cambia cursor a manita */
       color: rgb(226, 75, 75);                  /* Color gris */
       z-index: 1;                   /* Encima del contenido */
-      width: 30px;                  /* Ancho fijo */
-      height: 30px;                 /* Alto fijo */
+      padding: 1px 6px;
       display: flex;                /* Flexbox para centrar el símbolo */
       align-items: center;          /* Centra verticalmente */
       justify-content: center;      /* Centra horizontalmente */
@@ -73,9 +74,8 @@
 
     /* HOVER DEL BOTÓN DE CIERRE */
     .modal-close-btn:hover {
-      background-color: #f0f0f0;    /* Fondo gris claro al pasar el mouse */
-      color: red;
-      border: solid rgba(128, 128, 128, 0.74) 0.5px;
+      background-color: #db0c0c;    /* Fondo gris claro al pasar el mouse */
+      color: rgb(237, 228, 228);
       border-radius: 50%;                 /* Color más oscuro */
     }
 

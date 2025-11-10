@@ -50,6 +50,7 @@ export default class ActualizarPerfil {
     if(respuesta) this.router.navigate(['/admin/perfil-login']);
   }
 
+  //comprobar si hubo cambio en formulario original
   verificarCambios(current: any, original: any): boolean {
   return JSON.stringify(current) === JSON.stringify(original);
 }

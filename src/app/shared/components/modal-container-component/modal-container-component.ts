@@ -123,6 +123,25 @@ export class ModalContainerComponent implements AfterViewInit  {
       (componentRef.instance as any).modalRef = modal;
     }
 
+    // NUEVO: Conecta los outputs del componente con los manejadores proporcionados
+    if (config.outputs && componentRef.instance) {
+      // Recorre cada output definido en la configuración
+      Object.keys(config.outputs).forEach(outputName => {
+        const handler = config.outputs![outputName];
+        const output = componentRef.instance[outputName];
+
+        // VERIFICAR SI ES UN EVENTEMITTER (OUTPUT DE ANGULAR)
+        // Los @Output() son instancias de EventEmitter que tienen el método subscribe()
+        if (output && typeof output.subscribe === 'function') {
+          // SUSCRIBIRSE AL EVENTO
+          // Cuando el componente emita el evento, se ejecutará el handler
+          output.subscribe((event: any) => {
+            handler(event);
+          });
+        }
+      });
+    }
+
     // 5. INSERTAR EN EL DOM
     // CAMBIO IMPORTANTE: Ahora usa el contenedor específico pasado como parámetro
     // en lugar de this.modalBody (que era único y causaba el problema)

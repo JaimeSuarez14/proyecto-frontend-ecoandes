@@ -20,7 +20,7 @@
              -->
 
     <!-- CONTENIDO DEL MODAL (Caja blanca central) -->
-    <div class="modal-content" [style.width]="getConfig(modal.id)?.width || '500px'"
+    <div class="modal-content dark:bg-black" [style.width]="getConfig(modal.id)?.width || '500px'"
       [style.height]="getConfig(modal.id)?.height || 'auto'" [style.z-index]="1001 + $index * 10"
       (click)="$event.stopPropagation()">
       <!--
@@ -35,7 +35,7 @@
       <!-- BOTÓN DE CIERRE (X) -->
       <!-- Solo se muestra si showCloseButton no es false en la config -->
       @if (getConfig(modal.id)?.showCloseButton !== false) {
-      <button class="modal-close-btn" (click)="modal.close()">×</button>
+      <button class="modal-close-btn" (click)="modal.close()">✕</button>
       }
 
       <!-- CUERPO DEL MODAL -->

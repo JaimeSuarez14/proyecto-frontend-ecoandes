@@ -6,3 +6,13 @@
 .animate-fade-in {
   animation: fade-in 1s ease-out;
 }
+
+
+.animate-fade-out {
+  animation: fade-out 1s ease-out;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.55); }
+}

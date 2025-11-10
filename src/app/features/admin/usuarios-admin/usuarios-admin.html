@@ -2,16 +2,18 @@
 
 <section class="p-4 flex justify-between">
   <span> Administra todos los Usuarios de manera eficiente</span>
-  <button type="button"
-    class="bg-amber-800 text-white font-semibold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors">+ Nuevo
-    Usuario</button>
+  <button type="button" (click)="crearUsuario()" title="Crear Usuario"
+    class="bg-amber-800 text-white font-semibold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors"><span class="hidden md:inline">+ Nuevo
+    Usuario</span><i class="bi bi-person-plus inline md:hidden"></i></button>
 </section>
 
 <section class="mx-4 p-4 border border-gray-300/50 rounded-2xl bg-gray-200/70 dark:bg-white/10 mb-2">
   <div id="" class="grid grid-cols-2 md:grid-cols-4 items-center md:justify-between gap-4 md:gap-0">
     <!--busqueda por username select-->
     <div class="wpDataTableFilterSection" id="table_1_1_filter_sections">
-      <label [class]=" searchUsername() && 'px-2 rounded-xl bg-blue-700 text-indigo-50 ring-indigo-200 dark:bg-white dark:text-blue-700'">Usuario :</label>
+      <label
+        [class]=" searchUsername() && 'px-2 rounded-xl bg-blue-700 text-indigo-50 ring-indigo-200 dark:bg-white dark:text-blue-700'">Usuario
+        :</label>
       <div id="table_1_1_filter" class="column-model">
         <div class="relative bootstrap-select wdt-select-filter wdt-filter-control bs3">
           <select class="pl-6 pr-2 text-blue-700 dark:text-white border-none py-2 bg-blue-100 dark:bg-amber-950"
@@ -31,7 +33,9 @@
 
     <!--busqueda Email input-->
     <div class="relative" id="">
-      <label [class]="searchEmail() && 'px-2 rounded-xl bg-blue-700 text-indigo-50 ring-indigo-200 dark:bg-white dark:text-blue-700'">Email :</label>
+      <label
+        [class]="searchEmail() && 'px-2 rounded-xl bg-blue-700 text-indigo-50 ring-indigo-200 dark:bg-white dark:text-blue-700'">Email
+        :</label>
       <div id="table_1_2_filter" class="column-package">
         <button (click)="activarFiltroEmail()"
           class="dark:bg-amber-800 bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors"><i
@@ -53,7 +57,7 @@
         class="px-2 rounded-xl has-checked:bg-blue-700 has-checked:text-indigo-50 has-checked:ring-indigo-200 dark:has-checked:bg-white dark:has-checked:text-blue-700 dark:has-checked:ring-indigo-900 ...">
         <i class="bi bi-person-rolodex"></i>
         Rol:
-        <input type="checkbox" [(ngModel)]="activeFiltroRol" class="checked:border-indigo-500 ..."  />
+        <input type="checkbox" [(ngModel)]="activeFiltroRol" class="checked:border-indigo-500 ..." />
       </label>
 
       <input type="checkbox" id="checkbox" [disabled]="!activeFiltroRol()" class="sr-only peer disabled:bg-gray-100/50"
@@ -74,9 +78,10 @@
     </div>
 
     <!--Resetear los filtros-->
-    <div class="flex md:justify-center" >
+    <div class="flex md:justify-center">
       <button class="bg-green-800 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
-        aria-label="Clear filters" role="button" (click)="resetFiltros()"><i class="bi bi-eraser mr-1"></i>Limpiar filtros</button>
+        aria-label="Clear filters" role="button" (click)="resetFiltros()"><i class="bi bi-eraser mr-1"></i>Limpiar
+        filtros</button>
     </div>
   </div>
 </section>
@@ -122,7 +127,8 @@
       @for (usuario of listaFiltrada(); track $index) {
       @if (usuario.username !== authService.currentUserAuth$()?.username) {
       <tr
-        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600" animate.enter="fade-in" animate.leave="fade-out" >
+        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+        animate.enter="fade-in" animate.leave="fade-out">
         <th scope="row" class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
           {{usuario.nombreCompleto}}
         </th>
@@ -140,7 +146,7 @@
         </td>
         <td class="px-1 py-4 text-center flex gap-1 items-center">
           <button class="bg-gray-500 text-white p-1 rounded-md text-xs hover:bg-yellow-600 transition-colors mr-1"
-            (click)="editarMensaje(usuario)">
+            (click)="editarMensaje(usuario)" >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -170,5 +176,8 @@
     </tbody>
   </table>
 </div>
-
 }
+
+<app-modal-container-component />
+
+<app-alert-confirmacion tipoId="confirmation"/>

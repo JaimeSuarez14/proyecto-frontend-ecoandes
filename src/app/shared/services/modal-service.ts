@@ -9,6 +9,8 @@ export interface ModalConfig {
   height?: string;             // Alto del modal (ejemplo: '300px', 'auto')
   closeOnBackdrop?: boolean;   // Si true, el modal se cierra al hacer clic en el fondo oscuro
   showCloseButton?: boolean;   // Si true, muestra el botón X para cerrar el modal
+  outputs?: { [key: string]: (event: any) => void };  // NUEVO: Manejadores de eventos (outputs)
+
 }
 
 // INTERFAZ DE REFERENCIA AL MODAL

@@ -25,6 +25,7 @@ export class FormularioGenerico {
   @Input() submitButtonText: string = 'Enviar';
   @Output() formSubmit = new EventEmitter<any>();
   machValue = input<any>()
+  title = ""
 
   form!: FormGroup;
   showPassword: Record<string, boolean> = {};

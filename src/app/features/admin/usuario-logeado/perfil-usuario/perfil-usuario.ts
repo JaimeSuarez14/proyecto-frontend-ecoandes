@@ -7,12 +7,17 @@ import { AlertComponent } from '@shared/components/alert-component/alert-compone
 import { CelularOcultoPipe } from '@pipes/celular-oculto-pipe';
 import { ModalService } from '@shared/services/modal-service';
 import { ModificarPerfil } from '@shared/components/modificar-perfil/modificar-perfil';
-import { ModalContainerComponent } from "@shared/components/modal-container-component/modal-container-component";
-import { CardPerfilUsuario } from "@shared/components/card-perfil-usuario/card-perfil-usuario";
+import { ModalContainerComponent } from '@shared/components/modal-container-component/modal-container-component';
+import { CardPerfilUsuario } from '@shared/components/card-perfil-usuario/card-perfil-usuario';
 
 @Component({
   selector: 'app-perfil-usuario',
-  imports: [AlertComponent, CelularOcultoPipe, ModalContainerComponent, CardPerfilUsuario],
+  imports: [
+    AlertComponent,
+    CelularOcultoPipe,
+    ModalContainerComponent,
+    CardPerfilUsuario,
+  ],
   templateUrl: './perfil-usuario.html',
   styleUrl: './perfil-usuario.css',
 })
@@ -43,38 +48,42 @@ export default class PerfilUsuario implements OnInit {
   //apartado para el modal
   modalRef: any;
   private modalService = inject(ModalService);
-    // MÉTODO PARA ABRIR MODAL ANIDADO
-    openModificarCelular() {
-      // Abre un nuevo modal usando el servicio
-      // Este modal se renderizará encima del modal actual
-      this.modalService.openModal({
-        component: ModificarPerfil,  // Componente a renderizar
-        data: { // Datos a pasar
-          titulo: 'Actualizar Número de Celular' ,
-          primerMensaje:"Información: Para mayor seguridad vuelva a ingresar su numero anterior.",
-          name:'celular'
-        },
-        width: '600px'  // Ancho personalizado
-      });
-    }
+  // MÉTODO PARA ABRIR MODAL ANIDADO
+  openModificarCelular() {
+    // Abre un nuevo modal usando el servicio
+    // Este modal se renderizará encima del modal actual
+    this.modalService.openModal({
+      component: ModificarPerfil, // Componente a renderizar
+      data: {
+        // Datos a pasar
+        titulo: 'Actualizar Número de Celular',
+        primerMensaje:
+          'Información: Para mayor seguridad vuelva a ingresar su numero anterior.',
+        name: 'celular',
+      },
+      width: '600px', // Ancho personalizado
+    });
+  }
 
-    // MÉTODO PARA CERRAR EL MODAL ACTUAL
-    close() {
-      // Usa el operador opcional ?. por si modalRef aún no está asignado
-      this.modalRef?.close();
-    }
+  // MÉTODO PARA CERRAR EL MODAL ACTUAL
+  close() {
+    // Usa el operador opcional ?. por si modalRef aún no está asignado
+    this.modalRef?.close();
+  }
 
-    openModificarContrasena() {
-      // Abre un nuevo modal usando el servicio
-      // Este modal se renderizará encima del modal actual
-      this.modalService.openModal({
-        component: ModificarPerfil,  // Componente a renderizar
-        data: { // Datos a pasar
-          titulo: 'Actualizar Contraseña' ,
-          primerMensaje:"Información: Para mayor seguridad vuelva ingresar su contraseña para ser verificada.",
-          name:'password',
-        },
-        width: '600px'  // Ancho personalizado
-      });
-    }
+  openModificarContrasena() {
+    // Abre un nuevo modal usando el servicio
+    // Este modal se renderizará encima del modal actual
+    this.modalService.openModal({
+      component: ModificarPerfil, // Componente a renderizar
+      data: {
+        // Datos a pasar
+        titulo: 'Actualizar Contraseña',
+        primerMensaje:
+          'Información: Para mayor seguridad vuelva ingresar su contraseña para ser verificada.',
+        name: 'password',
+      },
+      width: '600px', // Ancho personalizado
+    });
+  }
 }

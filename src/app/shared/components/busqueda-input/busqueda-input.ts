@@ -27,7 +27,10 @@ export class BusquedaInput {
   // Computed reactivo que genera sugerencias dinámicas
   suggestions = computed(() => {
     const term = this.buscarPalabra().toLowerCase().trim();
-    if (!term) return [];
+    if (!term){
+      this.focused = true;
+      return [];
+    }
     const allNames = this.store.usuarios().map((p) => p.nombreCompleto);
     // Sugerencias que contengan el texto ingresado
     return allNames
