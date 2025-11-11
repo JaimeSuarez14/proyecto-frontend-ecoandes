@@ -1,0 +1,83 @@
+<div class="flex flex-col w-full items-center">
+  <h1 class="text-xl font-bold text-orange-800 text-center py-1 border-b-2 mb-2">LISTA DE {{titulo()}}</h1>
+  <div class="relative w-full md:px-4 md:py-2 h-64 overflow-x-auto shadow-md sm:rounded-lg bg-white/10">
+    <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-blue-100 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          @for (item of columns; track $index) {
+          <th scope="col" class="px-1 py-2">
+            {{item.label}}
+          </th>
+          }
+          <th scope="col" class="px-1 py-2">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of paginatedAlumno(); track $index) {
+        <tr
+          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600" animation.enter="fade-in" animation.leave="face-out">
+          @for (column of columns; track $index) {
+          <th scope="row" class="px-1 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{item[column.key]!}}
+          </th>
+          }
+          <td class="px-1 py-2 text-center flex gap-1 items-center">
+            <button class="bg-gray-500 text-white p-1 rounded-md text-xs hover:bg-yellow-600 transition-colors mr-1"
+              (click)="editarMensaje(item)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536M9 13.5l-6 6V21h6l6-6-3.536-3.536z" />
+              </svg>
+            </button>
+            <button class="bg-red-500 text-white p-1 rounded-md text-xs hover:bg-red-600 transition-colors"
+              (click)="editarMensaje(item)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          </td>
+        </tr>
+        }
+
+        @if(paginatedAlumno().length===0){
+        <tr>
+          <td colspan="6" class=" px-4 py-4 text-center">No se encontraron resultados con esos filtros.</td>
+        </tr>
+        }
+
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex items-center justify-center mt-2">
+    <div class="flex justify-between max-w-md w-full border-2 dark:bg-gray-900 bg-gray-200 border-gray-300 dark:border-gray-800 gap-4 rounded-lg p-2">
+      <button (click)="previusPage()"
+        class="px-2 py-1 text-sm font-medium text-gray-700 bg-white hover:bg-white/80  rounded-md disabled:hover:bg-white disabled:opacity-70"
+        [disabled]="currentPage() ===0">
+        Previo
+      </button>
+
+      <div [class]="'flex space-x-1 '">
+        @for (pageNumber of pageNumbers(); track $index) {
+        <button (click)="goToPage(pageNumber)"
+          [class]="'px-3 py-1 text-sm font-medium rounded-md '+(currentPage()===pageNumber ? 'bg-blue-600 text-white ':'bg-blue-950 text-gray-400 hover:bg-gray-600')">
+          {{pageNumber + 1}}
+        </button>
+        }
+      </div>
+
+      <button (click)="nextPage()"
+        class="px-2 py-1 text-sm font-medium text-gray-700 bg-white hover:bg-white/80  rounded-md disabled:hover:bg-white disabled:opacity-70"
+        [disabled]="currentPage() === totalPage() -  1">
+        Next
+      </button>
+
+    </div>
+  </div>
+</div>

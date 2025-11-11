@@ -19,23 +19,9 @@ import { FormularioGenerico } from '@shared/components/formulario-generico/formu
 import { ConfirmacionService } from '@shared/services/confirmacion-service';
 import { ModalContainerComponent } from '@shared/components/modal-container-component/modal-container-component';
 import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-confirmacion";
+import { PaginacionLinkedsignal } from "@shared/components/paginacion-linkedsignal/paginacion-linkedsignal";
+import { FiltrosTablas } from "@shared/components/filtros-tablas/filtros-tablas";
 
-interface FormField {
-  name: string;
-  label: string;
-  icon?: string;
-  type:
-    | 'text'
-    | 'password'
-    | 'email'
-    | 'tel'
-    | 'hidden'
-    | 'checkbox'
-    | 'select';
-  placeholder?: string;
-  required?: boolean;
-  options?: { label: string; value: any }[]; // para checkbox o select
-}
 @Component({
   selector: 'app-usuarios-admin',
   imports: [
@@ -44,7 +30,9 @@ interface FormField {
     BusquedaInput,
     FormsModule,
     ModalContainerComponent,
-    AlertConfirmacion
+    AlertConfirmacion,
+    PaginacionLinkedsignal,
+    FiltrosTablas
 ],
   templateUrl: './usuarios-admin.html',
   styleUrl: './usuarios-admin.css',
@@ -59,20 +47,15 @@ export class UsuariosAdmin implements OnInit {
         (u) => u.username !== this.authService.currentUserAuth$()?.username
       )
   );
-  //filtro por rol
-  activeFiltroRol = signal<boolean>(false);
+
+  listaUsernames = computed(()=> this.currentUsers().map(u => u.username))
+  searchUsername = signal("")
+  searchEmail=signal("")
   checkedRol = signal(false);
-  //filtro por email
-  activeFiltroEmail = false;
-  searchEmail = signal('');
-
-  //filtro por username
-  searchUsername = signal('');
-
+  activeFiltroRol = signal(false);
   searchName = signal('');
 
   constructor() {}
-
   ngOnInit(): void {
     // 👈 LLAMA AQUÍ
   }
@@ -80,22 +63,6 @@ export class UsuariosAdmin implements OnInit {
   editarMensaje(usuario: Usuario) {}
 
   eliminarMensaje(id: number) {}
-
-  cambiarFiltroRol() {
-    this.checkedRol.update((c) => !c);
-  }
-
-  activarFiltroEmail() {
-    this.activeFiltroEmail = !this.activeFiltroEmail;
-  }
-
-  resetFiltros() {
-    this.searchUsername.set('');
-    this.searchEmail.set('');
-    this.activeFiltroEmail = false;
-    this.activeFiltroRol.set(false);
-    this.checkedRol.set(false);
-  }
 
   recibirNombre(nombre: string) {
     this.searchName.set(nombre);
@@ -210,15 +177,37 @@ export class UsuariosAdmin implements OnInit {
 
   async onFormSubmit(data: any) {
     console.log(data);
-    return;
+    this.authService.crearUsuario(data as Usuario)
+    const estado = this.authService.errorMessage();
+    if(estado){
+      const respuesta = await this.confirmacionService.confirm(
+      'Hubo un error, deseas intentarlo de nuevo?'
+      );
+      if (!respuesta) this.router.navigate(['/admin/usuarios']);
+      return;
+    }
+
     const respuesta = await this.confirmacionService.confirm(
-      'No hiciste ningun cambio!!! Deseas ir tu Perfil?'
+      'Creacion Exitosa!!!'
     );
-    if (respuesta) this.router.navigate(['/admin/usuarios']);
+    this.modalService.closeAllModals();
+    this.userService.cargarUsuarios()
+
   }
 
   //comprobar si hubo cambio en formulario original
   verificarCambios(current: any, original: any): boolean {
     return JSON.stringify(current) === JSON.stringify(original);
   }
+
+
+  //paginacion
+  userColumns: { key: keyof Usuario; label: string }[] = [
+    { key: 'nombreCompleto', label: 'NOMBRE' },
+    { key: 'username', label: 'USERNAME' },
+    { key: 'email', label: 'EMAIL' },
+    { key: 'celular', label: 'CELULAR' },
+    { key: 'rol', label: 'ROL' },
+  ];
+
 }

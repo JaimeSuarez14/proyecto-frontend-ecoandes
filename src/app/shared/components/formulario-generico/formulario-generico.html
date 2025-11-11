@@ -1,10 +1,10 @@
-<div class="flex flex-col  w-full items-center p-2 dark:bg-black dark:border dark:border-white">
+<div class="flex flex-col  w-full items-center p-2 dark:bg-black ">
   @if (title) {
   <p class="py-4 text-lg md:text-2xl font-bold text-center text-fondo-normal dark:text-fondo-semiclaro">{{title}}</p>
   }
 
   <form [formGroup]="form" (ngSubmit)="onSubmit()"
-    class="space-y-4 flex-1 grid md:grid-cols-2 gap-2 w-full p-5 border border-gray-300 bg-gray-100 dark:bg-gray-600 rounded-2xl">
+    class="space-y-4 flex-1 grid grid-cols-1 md:grid-cols-2 gap-2 w-full p-5 border border-gray-300 bg-gray-100 dark:bg-gray-600 rounded-2xl">
     @for (field of fields; track $index) {
     <!-- Hidden -->
     <input *ngIf="field.type === 'hidden'" type="hidden" [formControlName]="field.name" />
@@ -71,7 +71,7 @@
     }
 
     <button type="submit" [disabled]="form.invalid"
-      class="w-full col-span-2 py-3 px-4 rounded-lg bg-green-500 text-white font-bold text-lg hover:bg-green-600 disabled:opacity-50">
+      class="w-full col-span-1 md:col-span-2 py-3 px-4 rounded-lg bg-green-500 text-white font-bold text-lg hover:bg-green-600 disabled:opacity-50">
       <i class="bi bi-person-plus mr-2"></i> {{ submitButtonText }}
     </button>
   </form>

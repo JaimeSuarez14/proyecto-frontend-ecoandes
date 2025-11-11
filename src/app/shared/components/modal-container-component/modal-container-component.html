@@ -20,7 +20,7 @@
              -->
 
     <!-- CONTENIDO DEL MODAL (Caja blanca central) -->
-    <div class="modal-content dark:bg-black" [style.width]="getConfig(modal.id)?.width || '500px'"
+    <div class="modal-content dark:bg-black dark:border dark:border-white" [style.width]="getConfig(modal.id)?.width || '500px'"
       [style.height]="getConfig(modal.id)?.height || 'auto'" [style.z-index]="1001 + $index * 10"
       (click)="$event.stopPropagation()">
       <!--

@@ -1,18 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, input, Input, Output, signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormField } from '@models/formulario.model';
 import { noSpacesValidator } from '@shared/validators/noSpacesValidator';
 import { HasRold } from "app/core/directives/has-rold";
-
-export interface FormField {
-  name: string;
-  label: string;
-  icon?: string;
-  type: 'text' | 'password' | 'email' | 'tel' | 'hidden' | 'checkbox' | "select";
-  placeholder?: string;
-  required?: boolean;
-  options?: { label: string; value: any }[]; // para checkbox o select
-}
 
 @Component({
   selector: 'app-formulario-generico',
