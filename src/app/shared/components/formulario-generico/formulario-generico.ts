@@ -15,7 +15,7 @@ export class FormularioGenerico {
   @Input() fields: FormField[] = [];
   @Input() submitButtonText: string = 'Enviar';
   @Output() formSubmit = new EventEmitter<any>();
-  machValue = input<any>()
+  @Input() machValue!:any;
   title = ""
 
   form!: FormGroup;
@@ -61,6 +61,6 @@ export class FormularioGenerico {
   }
 
   private machForm(){
-    if(this.machValue()) this.form.patchValue(this.machValue());
+    if(this.machValue) this.form.patchValue(this.machValue);
   }
 }

@@ -5,8 +5,10 @@ import {
   Input,
   input,
   linkedSignal,
+  output,
   signal,
 } from '@angular/core';
+import { Usuario } from '@models/Usuario';
 
 @Component({
   selector: 'paginacion-linkedsignal',
@@ -19,6 +21,8 @@ export class PaginacionLinkedsignal<T> {
   lista = input<T[]>();
   @Input() columns!: { key: keyof T; label: string }[];
   readonly itemsPerPage = signal(6);
+  updateItem = output<T>()
+  deleteItem = output<T>()
 
   currentPage = linkedSignal<T[] | undefined, number>({
     source: () => this.lista() ?? undefined,
@@ -33,7 +37,7 @@ export class PaginacionLinkedsignal<T> {
     },
   });
 
-  readonly paginatedAlumno = computed(() => {
+  readonly paginatedLista = computed(() => {
     const alumnos = this.lista();
     if (!alumnos) return [];
     const start = this.currentPage() * this.itemsPerPage();
@@ -67,7 +71,11 @@ export class PaginacionLinkedsignal<T> {
     this.currentPage.set(page);
   }
 
-  editarMensaje(arg0: any) {
-    console.log(arg0);
+  editar(arg0: T) {
+    this.updateItem.emit(arg0)
+  }
+
+  eliminar(arg0: T) {
+    this.deleteItem.emit(arg0)
   }
 }

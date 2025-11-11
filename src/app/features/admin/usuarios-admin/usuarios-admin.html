@@ -21,7 +21,7 @@
   }
 </div>
 
-<paginacion-linkedsignal [lista]="listaFiltrada()" [columns]="userColumns" titulo="USUARIOS" />
+<paginacion-linkedsignal [lista]="listaFiltrada()" [columns]="userColumns" titulo="USUARIOS" (updateItem)="openModalUpdateUsuario($event)" (deleteItem)="onDeleteUsuario($event)"/>
 
 <app-modal-container-component />
 

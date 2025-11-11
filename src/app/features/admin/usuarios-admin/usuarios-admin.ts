@@ -195,12 +195,13 @@ export class UsuariosAdmin{
     { key: 'rol', label: 'ROL' },
   ];
 
-  openModalUpdateUsuario(){
+  openModalUpdateUsuario(data: any){
+    const user =  data as Usuario;
     this.modalService.openModal({
       component: FormularioGenerico,
       data:{
-        title: 'Crear Nuevo Usuario',
-        submitButtonText:"Registrar",
+        title: 'Actualizar Usuario',
+        submitButtonText:"Actualizar",
         fields: [
           {
             name: 'username',
@@ -257,14 +258,23 @@ export class UsuariosAdmin{
             icon: 'bi bi-geo-alt',
           },
         ],
+                machValue:user,
+
       },
-      outputs: { 'formSubmit':($event) =>{ this.onUpdateUsuario($event) }},
+
+      outputs: { 'formSubmit':($event) => this.onUpdateUsuario($event) },
       width: '600px', // Ancho personalizado
     })
   }
 
   onUpdateUsuario(data: any){
-    this.confirmacionService.confirm("Se actualizo correctamente!!","info")
+    const user =  data as Usuario;
+    this.confirmacionService.confirm("Se actualizo correctamente!! "+ user.nombreCompleto,"success")
+  }
+
+  onDeleteUsuario(data:any){
+    const user =  data as Usuario;
+    this.confirmacionService.confirm(`Esta seguro de eliminar a ${user.username}??`,"warning")
   }
 
 }
