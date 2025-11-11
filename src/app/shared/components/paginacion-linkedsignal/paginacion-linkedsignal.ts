@@ -18,7 +18,7 @@ export class PaginacionLinkedsignal<T> {
   titulo= input("")
   lista = input<T[]>();
   @Input() columns!: { key: keyof T; label: string }[];
-  readonly itemsPerPage = signal(5);
+  readonly itemsPerPage = signal(6);
 
   currentPage = linkedSignal<T[] | undefined, number>({
     source: () => this.lista() ?? undefined,

@@ -1,11 +1,4 @@
-import {
-  Component,
-  computed,
-  inject,
-  linkedSignal,
-  OnInit,
-  signal,
-} from '@angular/core';
+import {Component,computed,inject,linkedSignal,signal} from '@angular/core';
 import { UserService } from '@shared/services/user-service';
 import { Usuario } from 'app/core/model/Usuario';
 import { SpinerCargando } from '@shared/components/spiner-cargando/spiner-cargando';
@@ -37,15 +30,11 @@ import { FiltrosTablas } from "@shared/components/filtros-tablas/filtros-tablas"
   templateUrl: './usuarios-admin.html',
   styleUrl: './usuarios-admin.css',
 })
-export class UsuariosAdmin implements OnInit {
+export class UsuariosAdmin{
   userService = inject(UserService);
   authService = inject(AuthService);
   currentUsers = computed(() =>
-    this.userService
-      .usuarios()
-      .filter(
-        (u) => u.username !== this.authService.currentUserAuth$()?.username
-      )
+    this.userService.usuarios().filter(u => u.username !== this.authService.currentUserAuth$()?.username)
   );
 
   listaUsernames = computed(()=> this.currentUsers().map(u => u.username))
@@ -54,11 +43,6 @@ export class UsuariosAdmin implements OnInit {
   checkedRol = signal(false);
   activeFiltroRol = signal(false);
   searchName = signal('');
-
-  constructor() {}
-  ngOnInit(): void {
-    // 👈 LLAMA AQUÍ
-  }
 
   editarMensaje(usuario: Usuario) {}
 
@@ -104,7 +88,7 @@ export class UsuariosAdmin implements OnInit {
   private confirmacionService = inject(ConfirmacionService);
 
   // MÉTODO PARA ABRIR MODAL ANIDADO
-  crearUsuario() {
+  openModalCrearUsuario() {
     this.modalService.openModal({
       component: FormularioGenerico, // Componente a renderizar
       data: {
@@ -170,36 +154,37 @@ export class UsuariosAdmin implements OnInit {
           },
         ],
       },
-       outputs: { 'formSubmit':($event) =>{ this.onFormSubmit($event) }},
+      outputs: { 'formSubmit':($event) =>{ this.onCreateUsuario($event) }},
       width: '600px', // Ancho personalizado
     });
   }
 
-  async onFormSubmit(data: any) {
+  async onCreateUsuario(data: any) {
     console.log(data);
     this.authService.crearUsuario(data as Usuario)
     const estado = this.authService.errorMessage();
     if(estado){
       const respuesta = await this.confirmacionService.confirm(
-      'Hubo un error, deseas intentarlo de nuevo?'
+      'Hubo un error, deseas intentarlo de nuevo?', "error"
       );
-      if (!respuesta) this.router.navigate(['/admin/usuarios']);
+      if (!respuesta){
+        this.router.navigate(['/admin/usuarios']);
+        this.modalService.closeAllModals();
+        return;
+      }
       return;
     }
-
     const respuesta = await this.confirmacionService.confirm(
-      'Creacion Exitosa!!!'
+      'Creacion Exitosa!!!', 'confirmation'
     );
     this.modalService.closeAllModals();
     this.userService.cargarUsuarios()
-
   }
 
   //comprobar si hubo cambio en formulario original
   verificarCambios(current: any, original: any): boolean {
     return JSON.stringify(current) === JSON.stringify(original);
   }
-
 
   //paginacion
   userColumns: { key: keyof Usuario; label: string }[] = [
@@ -209,5 +194,77 @@ export class UsuariosAdmin implements OnInit {
     { key: 'celular', label: 'CELULAR' },
     { key: 'rol', label: 'ROL' },
   ];
+
+  openModalUpdateUsuario(){
+    this.modalService.openModal({
+      component: FormularioGenerico,
+      data:{
+        title: 'Crear Nuevo Usuario',
+        submitButtonText:"Registrar",
+        fields: [
+          {
+            name: 'username',
+            label: 'Usuario',
+            type: 'text',
+            required: true,
+            icon: 'bi bi-person-circle',
+          },
+          {
+            name: 'email',
+            label: 'Email',
+            type: 'email',
+            required: true,
+            icon: 'bi bi-envelope-at',
+          },
+          {
+            name: 'password',
+            label: 'Password',
+            type: 'password',
+            required: true,
+            icon: 'bi bi-shield-lock',
+            placeholder:"Ingrese Contraseña"
+          },
+          {
+            name: 'rol',
+            label: 'Rol',
+            type: 'select',
+            required: true,
+            icon: 'bi bi-person-vcard-fill',
+            options: [
+              { label: 'ADMIN', value: 'ADMIN' },
+              { label: 'USUARIO', value: 'USUARIO' },
+            ],
+          },
+          {
+            name: 'nombreCompleto',
+            label: 'Nombre Completo',
+            type: 'text',
+            required: true,
+            icon: 'bi bi-person-fill',
+          },
+          {
+            name: 'celular',
+            label: 'Celular',
+            type: 'tel',
+            required: true,
+            icon: 'bi bi-phone',
+          },
+          {
+            name: 'direccion',
+            label: 'Dirección',
+            type: 'text',
+            required: true,
+            icon: 'bi bi-geo-alt',
+          },
+        ],
+      },
+      outputs: { 'formSubmit':($event) =>{ this.onUpdateUsuario($event) }},
+      width: '600px', // Ancho personalizado
+    })
+  }
+
+  onUpdateUsuario(data: any){
+    this.confirmacionService.confirm("Se actualizo correctamente!!","info")
+  }
 
 }

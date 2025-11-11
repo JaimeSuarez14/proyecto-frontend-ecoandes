@@ -1,7 +1,7 @@
 <div class="flex flex-col w-full items-center">
   <h1 class="text-xl font-bold text-orange-800 text-center py-1 border-b-2 mb-2">LISTA DE {{titulo()}}</h1>
-  <div class="relative w-full md:px-4 md:py-2 h-64 overflow-x-auto shadow-md sm:rounded-lg bg-white/10">
-    <table class="min-w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <div class="relative w-full md:px-4 md:py-2 h-[290px] overflow-auto shadow-md sm:rounded-lg bg-white/10">
+    <table class="mix-w-[290px] w-full max-w-full  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-blue-100 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           @for (item of columns; track $index) {
@@ -58,7 +58,7 @@
   <div class="flex items-center justify-center mt-2">
     <div class="flex justify-between max-w-md w-full border-2 dark:bg-gray-900 bg-gray-200 border-gray-300 dark:border-gray-800 gap-4 rounded-lg p-2">
       <button (click)="previusPage()"
-        class="px-2 py-1 text-sm font-medium text-gray-700 bg-white hover:bg-white/80  rounded-md disabled:hover:bg-white disabled:opacity-70"
+        class="px-2 py-1 text-sm font-medium text-gray-700 bg-white  hover:text-blue-700  rounded-md disabled:hover:bg-white disabled:hover:text-gray-700 disabled:opacity-70"
         [disabled]="currentPage() ===0">
         Previo
       </button>
@@ -66,14 +66,14 @@
       <div [class]="'flex space-x-1 '">
         @for (pageNumber of pageNumbers(); track $index) {
         <button (click)="goToPage(pageNumber)"
-          [class]="'px-3 py-1 text-sm font-medium rounded-md '+(currentPage()===pageNumber ? 'bg-blue-600 text-white ':'bg-blue-950 text-gray-400 hover:bg-gray-600')">
+          [class]="'px-3 py-1 text-sm font-medium rounded-md '+(currentPage()===pageNumber ? 'bg-blue-600 text-white ':'dark:bg-blue-950 text-gray-500 bg-gray-300 hover:text-gray-200 hover:bg-gray-500 dark:hover:bg-gray-600')">
           {{pageNumber + 1}}
         </button>
         }
       </div>
 
       <button (click)="nextPage()"
-        class="px-2 py-1 text-sm font-medium text-gray-700 bg-white hover:bg-white/80  rounded-md disabled:hover:bg-white disabled:opacity-70"
+        class="px-2 py-1 text-sm font-medium text-gray-700 bg-white  hover:text-blue-700  rounded-md disabled:hover:bg-white disabled:hover:text-gray-700 disabled:opacity-70"
         [disabled]="currentPage() === totalPage() -  1">
         Next
       </button>

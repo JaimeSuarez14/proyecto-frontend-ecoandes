@@ -1,13 +1,14 @@
-<app-subtitulo-dashboard titulo="Gestion de Usuarios" icon="fas fa-users text-center"/>
+<app-subtitulo-dashboard titulo="Gestion de Usuarios" icon="fas fa-users text-center" />
 
 <section class="p-4 flex justify-between">
   <span> Administra todos los Usuarios de manera eficiente</span>
-  <button type="button" (click)="crearUsuario()" title="Crear Usuario"
+  <button type="button" (click)="openModalCrearUsuario()" title="Crear Usuario"
     class="bg-amber-800 text-white font-semibold py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors"><span
       class="hidden md:inline">+ Nuevo Usuario</span><i class="bi bi-person-plus inline md:hidden"></i></button>
 </section>
 
-<app-filtros-tablas [currentUsernames]="listaUsernames()" [(checkedRol)]="checkedRol" [(searchUsername)]="searchUsername" [(activeFiltroRol)]="activeFiltroRol" [(searchEmail)]="searchEmail"/>
+<app-filtros-tablas [currentUsernames]="listaUsernames()" [(checkedRol)]="checkedRol"
+  [(searchUsername)]="searchUsername" [(activeFiltroRol)]="activeFiltroRol" [(searchEmail)]="searchEmail" />
 
 <busqueda-input (enviarResultado)="recibirNombre($event)" />
 
@@ -18,11 +19,10 @@
   @if (userService.isLoading()) {
   <app-spiner-cargando mensaje="Cargando Usuarios" [isColor]="true" />
   }
-
 </div>
 
 <paginacion-linkedsignal [lista]="listaFiltrada()" [columns]="userColumns" titulo="USUARIOS" />
 
 <app-modal-container-component />
 
-<app-alert-confirmacion tipoId="confirmation" />
+<app-alert-confirmacion />

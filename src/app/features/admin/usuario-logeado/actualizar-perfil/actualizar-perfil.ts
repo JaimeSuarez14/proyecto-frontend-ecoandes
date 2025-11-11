@@ -7,16 +7,7 @@ import { Usuario } from 'app/core/model/Usuario';
 import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-confirmacion";
 import { ConfirmacionService } from '@shared/services/confirmacion-service';
 import { Router } from '@angular/router';
-
-export interface FormField {
-  name: string;
-  label: string;
-  icon?: string;
-  type: 'text' | 'password' | 'email' | 'tel' | 'hidden' | 'checkbox' | "select";
-  placeholder?: string;
-  required?: boolean;
-  options?: { label: string; value: any }[]; // para checkbox o select
-}
+import { FormField } from '@models/formulario.model';
 
 @Component({
   selector: 'app-actualizar-perfil',
@@ -46,7 +37,7 @@ export default class ActualizarPerfil {
       this.userService.actualizarUsuario(usuarioUpdate);
       return;
     }
-    const respuesta = await this.confirmacionService.confirm("No hiciste ningun cambio!!! Deseas ir tu Perfil?");
+    const respuesta = await this.confirmacionService.confirm("No hiciste ningun cambio!!! Deseas ir tu Perfil?", "warning");
     if(respuesta) this.router.navigate(['/admin/perfil-login']);
   }
 

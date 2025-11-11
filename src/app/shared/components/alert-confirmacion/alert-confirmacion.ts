@@ -1,7 +1,7 @@
 import { Component, computed, HostListener, inject, input } from '@angular/core';
 import { ConfirmacionService } from '../../services/confirmacion-service';
+import { NotificacionTipo } from '@models/alert.type';
 
-type tipoNotificacion = 'success' | 'error' | 'warning' | 'info' | 'confirmation'
 @Component({
   selector: 'app-alert-confirmacion',
   imports: [],
@@ -85,13 +85,11 @@ export class AlertConfirmacion {
       }
     }
   ];
-
-  tipoId = input.required<tipoNotificacion>();
+  model = inject(ConfirmacionService);
   alertaSeleccionado = computed( () => {
-    const eleccion = this.tipoId();
+    const eleccion: NotificacionTipo = this.model.tipoId();
     return this.modals.find( e => e.id=== eleccion)!
   })
-  model = inject(ConfirmacionService);
 
   // Escucha global de la tecla Escape
   @HostListener('document:keydown.escape')
