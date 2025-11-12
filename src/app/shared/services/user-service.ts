@@ -89,14 +89,13 @@ export class UserService {
         }),
         filter((data) => {
           if (data.rol !== this.authService.currentUserAuth$()?.rol) {
-            this.authService.logout();
             return false;
           }
           return true;
         }),
         tap((data) => {
-          this.sessionService.ventanaMarcada();
-          this.authService.actualizarPerfil(data);
+          console.log(data);
+
         }),
         catchError((error) => {
           this.errorSignal.set(error?.message || 'Error al Actualizar Perfil');

@@ -37,7 +37,7 @@ export class AlertConfirmacion {
       type: 'Error',
       title: 'Error Crítico',
       message: 'No se pudo completar la operación. Por favor, verifica los datos e intenta nuevamente.',
-      icon: 'bi bi-emoji-tear',
+      icon: 'bi bi-x-octagon',
       colors: {
         gradient: 'from-red-500 to-rose-600',
         bg: 'bg-red-500/20',

@@ -4,10 +4,12 @@ import { Component, signal, input, inject, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ModalService } from '@shared/services/modal-service';
 import { noSpacesValidator } from '@shared/validators/noSpacesValidator';
+import { AlertConfirmacion } from '../alert-confirmacion/alert-confirmacion';
+import { ConfirmacionService } from '@shared/services/confirmacion-service';
 
 @Component({
   selector: 'app-modificar-perfil',
-  imports: [FormsModule, TitleCasePipe],
+  imports: [FormsModule, TitleCasePipe, AlertConfirmacion],
   templateUrl: './modificar-perfil.html',
   styleUrl: './modificar-perfil.css',
 })
@@ -19,6 +21,7 @@ export class ModificarPerfil {
   verificarName = '';
   secondvalueInput = signal<string>('');
   UserService = inject(UserService);
+  private confirmacionService = inject(ConfirmacionService);
   //true si ambos son iguales
   matchInputs = computed(
     () =>
@@ -30,38 +33,6 @@ export class ModificarPerfil {
   modalRef: any;
   private modalService = inject(ModalService);
   // MÉTODO PARA ABRIR MODAL ANIDADO
-
-  async checkInput() {
-    if (
-      this.verificarName.length <= 0 &&
-      this.secondvalueInput().length <= 0 &&
-      !this.matchInputs()
-    ) {
-      const estado = await this.UserService.verificarConstraseña(
-        this.valueInput()
-      );
-
-      if (estado) {
-        this.openSecondModal();
-        return;
-      }
-      alert(this.name + ' Incorrecta!!');
-      return;
-    }
-
-    //logica para enviar el dato al backend
-    const estado = await this.UserService.actualizarContraseña(
-      this.valueInput()
-    );
-    if (estado.status === 'mensaje') {
-      alert(estado.message);
-      this.verificarName = '';
-      this.modalService.closeAllModals();
-      return;
-    }
-    alert(this.name + ' no se puedo actualizar!!');
-  }
-
   openSecondModal() {
     // Abre un nuevo modal usando el servicio
     // Este modal se renderizará encima del modal actual
@@ -87,6 +58,51 @@ export class ModificarPerfil {
             },
       width: '500px', // Ancho personalizado
     });
+  }
+
+  async checkInput() {
+    if (
+      this.verificarName.length <= 0 &&
+      this.secondvalueInput().length <= 0 &&
+      !this.matchInputs()
+    ) {
+      const estado = await this.UserService.verificarConstraseña(
+        this.valueInput()
+      );
+
+      if (estado) {
+        const respuesta = await this.confirmacionService.confirm(
+          'Contraseña Correcta!!',
+          'success'
+        );
+        if (respuesta) {
+          this.openSecondModal();
+          return;
+        }
+        return;
+      }
+      const answer = await this.confirmacionService.confirm(
+        'Contraseña Incorrecta!!',
+        'error'
+      );
+      if (!answer) {
+        this.modalService.closeAllModals();
+        return;
+      }
+      return;
+    }
+
+    //logica para enviar el dato al backend
+    const estado = await this.UserService.actualizarContraseña(
+      this.valueInput()
+    );
+    if (estado.status === 'mensaje') {
+      await this.confirmacionService.confirm(estado.message, 'success');
+      this.verificarName = '';
+      this.modalService.closeAllModals();
+      return;
+    }
+    alert(this.name + ' no se puedo actualizar!!');
   }
 
   // MÉTODO PARA CERRAR EL MODAL ACTUAL

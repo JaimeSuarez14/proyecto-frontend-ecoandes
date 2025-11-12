@@ -41,6 +41,7 @@ export class FormularioGenerico {
       group[field.name] = [field.type === 'checkbox' ? false : '', validators];
 
       if (field.type === 'password') {
+        validators.push(Validators.minLength(6));
         this.showPassword[field.name] = false;
       }
     });

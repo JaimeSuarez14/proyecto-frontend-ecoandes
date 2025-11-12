@@ -8,6 +8,7 @@ import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-c
 import { ConfirmacionService } from '@shared/services/confirmacion-service';
 import { Router } from '@angular/router';
 import { FormField } from '@models/formulario.model';
+import { SessionService } from '@shared/services/session-service';
 
 @Component({
   selector: 'app-actualizar-perfil',
@@ -19,6 +20,7 @@ export default class ActualizarPerfil {
   private confirmacionService = inject(ConfirmacionService)
   authService = inject(AuthService);
   userService = inject(UserService);
+  sessionService = inject(SessionService)
   private router = inject(Router);
 
   fields: FormField[] = [
@@ -32,9 +34,24 @@ export default class ActualizarPerfil {
   ]
 
   async onFormSubmit(data: any) {
-    const  usuarioUpdate: Usuario = { ...this.authService.currentUserAuth$()!, ...data as AuthService};
-    if(!this.verificarCambios(usuarioUpdate , this.authService.currentUserAuth$())) {
+    const current = this.authService.currentUserAuth$()!;
+    const  usuarioUpdate: Usuario = { ...current, ...data as Usuario};
+    const userPas =  this.userService.usuarios().find(u => u.id === usuarioUpdate.id)
+    usuarioUpdate.password = userPas?.password!;
+    current.password =  userPas?.password!;
+
+    //para lanzar una advertencia
+    const isChanceRol = usuarioUpdate.rol!==this.authService.currentUserAuth$()?.rol
+    if(isChanceRol){
+      const resp = await this.confirmacionService.confirm("Esta seguro de cambiar tu rol? Una vez aceptado se cerrará sesion...", "warning");
+      if(!resp) return;
+    }
+
+    if(!this.verificarCambios(usuarioUpdate , current)) {
       this.userService.actualizarUsuario(usuarioUpdate);
+      if(isChanceRol){this.authService.logout()}
+      this.sessionService.ventanaMarcada();
+      this.authService.actualizarPerfil(usuarioUpdate);
       return;
     }
     const respuesta = await this.confirmacionService.confirm("No hiciste ningun cambio!!! Deseas ir tu Perfil?", "warning");

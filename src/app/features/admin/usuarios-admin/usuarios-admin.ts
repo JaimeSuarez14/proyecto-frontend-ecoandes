@@ -195,8 +195,10 @@ export class UsuariosAdmin{
     { key: 'rol', label: 'ROL' },
   ];
 
+  updateUser = signal<Usuario | null >(null)
   openModalUpdateUsuario(data: any){
     const user =  data as Usuario;
+    this.updateUser.set(user)
     this.modalService.openModal({
       component: FormularioGenerico,
       data:{
@@ -267,9 +269,23 @@ export class UsuariosAdmin{
     })
   }
 
-  onUpdateUsuario(data: any){
+  async onUpdateUsuario(data: any){
     const user =  data as Usuario;
-    this.confirmacionService.confirm("Se actualizo correctamente!! "+ user.nombreCompleto,"success")
+    const currentUser:Usuario = { ...this.updateUser()!, ...user}
+    console.log(currentUser);
+
+    if(!this.verificarCambios(currentUser , this.updateUser()!)) {
+      this.userService.actualizarUsuario(currentUser);
+      await this.confirmacionService.confirm("Se actualizo correctamente!! "+ user.nombreCompleto,"success")
+      this.modalService.closeAllModals();
+      return;
+    }
+
+    const respuesta = await this.confirmacionService.confirm("No hiciste ningun cambio!!! Desear volver intentarlo?", "warning");
+    if(respuesta){
+        this.modalService.closeAllModals();
+    }
+
   }
 
   onDeleteUsuario(data:any){

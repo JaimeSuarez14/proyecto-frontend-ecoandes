@@ -40,6 +40,9 @@
           <i class="bi" [ngClass]="showPassword[field.name] ? 'bi-eye-slash' : 'bi-eye'"></i>
         </button>
       </div>
+      <small class="text-red-500 dark:text-red-400 " *ngIf="form.get(field.name)?.invalid && form.get(field.name)?.touched">
+        Campo inválido o requerido.
+      </small>
     </div>
     }
 

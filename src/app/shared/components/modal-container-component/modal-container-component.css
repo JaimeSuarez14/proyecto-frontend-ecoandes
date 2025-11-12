@@ -38,7 +38,8 @@
       border-radius: 8px;                 /* Bordes redondeados */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Sombra suave */
       position: relative;                 /* Para posicionar el botón de cierre absolutamente */
-      max-width: 90vw;                    /* Máximo 90% del ancho de la ventana */
+      max-width: 90vw;
+      min-height: 385px;                    /* Máximo 90% del ancho de la ventana */
       max-height: 90vh;                   /* Máximo 90% del alto de la ventana */
       overflow: auto;                     /* Scroll si el contenido es muy grande */
       transform: scale(0.9);              /* Inicia a 90% del tamaño para animación */
