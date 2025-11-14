@@ -6,10 +6,10 @@ import { AuthService } from '@shared/services/auth-service';
 import { SubtituloDashboard } from '@shared/components/subtitulo-dashboard/subtitulo-dashboard';
 import { BusquedaInput } from '@shared/components/busqueda-input/busqueda-input';
 import { FormsModule } from '@angular/forms';
-import { ModalService } from '@shared/services/modal-service';
+import { ModalService } from '@shared/services/utils/modal-service';
 import { Router } from '@angular/router';
 import { FormularioGenerico } from '@shared/components/formulario-generico/formulario-generico';
-import { ConfirmacionService } from '@shared/services/confirmacion-service';
+import { ConfirmacionService } from '@shared/services/utils/confirmacion-service';
 import { ModalContainerComponent } from '@shared/components/modal-container-component/modal-container-component';
 import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-confirmacion";
 import { PaginacionLinkedsignal } from "@shared/components/paginacion-linkedsignal/paginacion-linkedsignal";
@@ -282,7 +282,7 @@ export class UsuariosAdmin{
     }
 
     const respuesta = await this.confirmacionService.confirm("No hiciste ningun cambio!!! Desear volver intentarlo?", "warning");
-    if(respuesta){
+    if(!respuesta){
         this.modalService.closeAllModals();
     }
 

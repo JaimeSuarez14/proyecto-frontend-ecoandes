@@ -5,10 +5,10 @@ import { SubtituloDashboard } from "@shared/components/subtitulo-dashboard/subti
 import { UserService } from '@shared/services/user-service';
 import { Usuario } from 'app/core/model/Usuario';
 import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-confirmacion";
-import { ConfirmacionService } from '@shared/services/confirmacion-service';
+import { ConfirmacionService } from '@shared/services/utils/confirmacion-service';
 import { Router } from '@angular/router';
 import { FormField } from '@models/formulario.model';
-import { SessionService } from '@shared/services/session-service';
+import { SessionService } from '@shared/services/utils/session-service';
 
 @Component({
   selector: 'app-actualizar-perfil',

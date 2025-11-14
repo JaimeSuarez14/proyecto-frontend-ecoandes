@@ -2,10 +2,10 @@ import { UserService } from '@shared/services/user-service';
 import { TitleCasePipe } from '@angular/common';
 import { Component, signal, input, inject, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ModalService } from '@shared/services/modal-service';
+import { ModalService } from '@shared/services/utils/modal-service';
 import { noSpacesValidator } from '@shared/validators/noSpacesValidator';
 import { AlertConfirmacion } from '../alert-confirmacion/alert-confirmacion';
-import { ConfirmacionService } from '@shared/services/confirmacion-service';
+import { ConfirmacionService } from '@shared/services/utils/confirmacion-service';
 
 @Component({
   selector: 'app-modificar-perfil',

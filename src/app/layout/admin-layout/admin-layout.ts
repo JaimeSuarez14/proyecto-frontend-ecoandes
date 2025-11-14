@@ -9,7 +9,7 @@ import {
 import { AuthService } from '@shared/services/auth-service';
 import { HasRold } from 'app/core/directives/has-rold';
 import { Popover } from "@shared/components/popover/popover";
-import { SessionService } from '@shared/services/session-service';
+import { SessionService } from '@shared/services/utils/session-service';
 
 @Component({
   selector: 'app-admin-layout',

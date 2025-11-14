@@ -1,5 +1,5 @@
 import { ApiResponse } from './../../core/model/api-response.model';
-import { SessionService } from './session-service';
+import { SessionService } from './utils/session-service';
 import { AuthService } from '@shared/services/auth-service';
 import { HttpClient } from '@angular/common/http';
 import { Directive, inject, Injectable, signal } from '@angular/core';

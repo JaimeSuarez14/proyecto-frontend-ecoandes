@@ -1,4 +1,4 @@
-import { SessionService } from '@shared/services/session-service';
+import { SessionService } from '@shared/services/utils/session-service';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Component, effect, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';

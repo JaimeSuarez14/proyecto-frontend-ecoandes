@@ -8,7 +8,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { Usuario } from '@models/Usuario';
+import { KeyColumns } from '@models/utils/columns.table';
 
 @Component({
   selector: 'paginacion-linkedsignal',
@@ -19,10 +19,11 @@ import { Usuario } from '@models/Usuario';
 export class PaginacionLinkedsignal<T> {
   titulo= input("")
   lista = input<T[]>();
-  @Input() columns!: { key: keyof T; label: string }[];
-  readonly itemsPerPage = signal(6);
+  @Input() columns!: KeyColumns<T>[];
   updateItem = output<T>()
   deleteItem = output<T>()
+
+  readonly itemsPerPage = signal(6);
 
   currentPage = linkedSignal<T[] | undefined, number>({
     source: () => this.lista() ?? undefined,

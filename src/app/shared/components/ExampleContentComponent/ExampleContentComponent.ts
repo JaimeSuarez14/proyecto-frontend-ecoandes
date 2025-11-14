@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { ModalService } from "@shared/services/modal-service";
+import { ModalService } from "@shared/services/utils/modal-service";
 import { NestedModalComponent } from "../NestedModalComponent/NestedModalComponent";
 
 @Component({

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ComponentRef, createComponent, effect, EnvironmentInjector, inject, QueryList, ViewChild, ViewChildren, ViewContainerRef } from '@angular/core';
-import { ModalService } from '@shared/services/modal-service';
+import { ModalService } from '@shared/services/utils/modal-service';
 
 @Component({
   selector: 'app-modal-container-component',

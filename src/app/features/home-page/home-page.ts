@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CarouselComponent } from '../../shared/carousel-component/carousel-component';
 import { AlertComponent } from '@shared/components/alert-component/alert-component';
 import { AlertaTipo } from '@models/alert.type';
-import { SessionService } from '@shared/services/session-service';
+import { SessionService } from '@shared/services/utils/session-service';
 
 
 @Component({

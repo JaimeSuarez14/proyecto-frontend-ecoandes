@@ -1,5 +1,5 @@
 import { Component, computed, HostListener, inject, input } from '@angular/core';
-import { ConfirmacionService } from '../../services/confirmacion-service';
+import { ConfirmacionService } from '../../services/utils/confirmacion-service';
 import { NotificacionTipo } from '@models/alert.type';
 
 @Component({

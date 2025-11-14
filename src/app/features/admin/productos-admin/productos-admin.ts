@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ExampleContentComponent } from '@shared/components/ExampleContentComponent/ExampleContentComponent';
-import { ModalService } from '@shared/services/modal-service';
+import { ModalService } from '@shared/services/utils/modal-service';
 import { ModalContainerComponent } from "@shared/components/modal-container-component/modal-container-component";
 
 @Component({
