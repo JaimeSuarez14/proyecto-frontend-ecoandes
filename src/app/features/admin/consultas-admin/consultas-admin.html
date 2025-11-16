@@ -1,11 +1,27 @@
-<app-subtitulo-dashboard titulo="Gestion de Consultas de Clientes" icon="bi bi-chat-right-text"/>
-@if (consultaService.userResourceAllConsultas.isLoading()) {
-  <div class="text-2xl text-center py-8">cargando....</div>
-}
-@if (consultaService.userResourceAllConsultas.error()) {
-  <div class="text-2xl text-center py-8">{{consultaService.userResourceAllConsultas.error()}}</div>
-}
-  <!-- <paginacion-linkedsignal titulo="CONSULTAS" [lista]="consultasRXJS()!" [columns]="columnsConsulta" /> -->
-   <paginacion-linkedsignal titulo="CONSULTAS" [lista]="consultas()!" [columns]="columnsConsultas" />
+<app-subtitulo-dashboard titulo="Gestion de Consultas de Clientes" icon="bi bi-chat-right-text" />
+<busqueda-input [data]="listName()" (enviarResultado)="recibirResultado($event)" />
 
+<div class="md:px-4">
+  <boton-generico mensaje="Actualizar Lista" (clicked)="reload()" icono="bi bi-arrow-clockwise" />
+</div>
 
+<div class="md:px-4 mt-2">
+  <boton-generico mensaje="Abrir Modal" (clicked)="openModal()" icono="bi bi-arrow-clockwise" />
+</div>
+
+<div class="md:px-4 mt-2">
+  <boton-generico mensaje="Abrir Confirmacion" (clicked)="abrirConfirmacion()" icono="bi bi-arrow-clockwise" />
+</div>
+
+@if (consultaService.consultas.isLoading()) {
+  <app-spiner-cargando mensaje="Cargando Consultas" [isColor]="true" />
+}@else if(consultaService.consultas.error()) {
+  <div class="text-2xl text-center py-8">Hubo un error al cargar los datos {{consultaService.consultas.error()?.message}}</div>
+}
+
+<paginacion-linkedsignal titulo="CONSULTAS" [lista]="consultasRXJS()" [columns]="columnsConsulta" />
+<app-modal-container-component />
+<app-alert-confirmacion>
+  <app-spiner-cargando mensaje="Cargando Consultas" [isColor]="false" size="xl"/>
+  <p class="mb-6"></p>
+</app-alert-confirmacion>

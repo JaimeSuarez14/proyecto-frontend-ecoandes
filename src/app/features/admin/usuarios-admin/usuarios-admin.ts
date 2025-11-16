@@ -42,12 +42,15 @@ export class UsuariosAdmin{
   searchEmail=signal("")
   checkedRol = signal(false);
   activeFiltroRol = signal(false);
-  searchName = signal('');
+
 
   editarMensaje(usuario: Usuario) {}
 
   eliminarMensaje(id: number) {}
 
+  ///apartado para la busqueda por el input nombres
+  listaNames = computed(()=> this.currentUsers().map(u => u.nombreCompleto))
+  searchName = signal('');
   recibirNombre(nombre: string) {
     this.searchName.set(nombre);
   }

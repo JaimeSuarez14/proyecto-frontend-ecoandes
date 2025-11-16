@@ -10,7 +10,7 @@
 <app-filtros-tablas [currentUsernames]="listaUsernames()" [(checkedRol)]="checkedRol"
   [(searchUsername)]="searchUsername" [(activeFiltroRol)]="activeFiltroRol" [(searchEmail)]="searchEmail" />
 
-<busqueda-input (enviarResultado)="recibirNombre($event)" />
+<busqueda-input [data]="listaNames()" (enviarResultado)="recibirNombre($event)" />
 
 <div class="flex flex-col items-center justify-center">
   @if (userService.errorMessage()) {

@@ -1,8 +1,5 @@
-import { Component, computed, effect, inject, output, signal } from '@angular/core';
+import { Component, computed, effect, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserService } from '@shared/services/user-service';
-
 @Component({
   selector: 'busqueda-input',
   imports: [FormsModule],
@@ -11,9 +8,8 @@ import { UserService } from '@shared/services/user-service';
 })
 export class BusquedaInput {
   buscarPalabra =  signal("");
-  store = inject(UserService);
-  router = inject(Router);
   enviarResultado =  output<string>()
+  data = input.required<string[]>()
 
   constructor(){
     effect(() => {
@@ -31,24 +27,17 @@ export class BusquedaInput {
       this.focused = true;
       return [];
     }
-    const allNames = this.store.usuarios().map((p) => p.nombreCompleto);
-    // Sugerencias que contengan el texto ingresado
-    return allNames
-      .filter((name) => name.toLowerCase().includes(term))
+    return this.data().filter((name) => name.toLowerCase().includes(term))
       .slice(0, 5); // máximo 5 sugerencias
   });
 
-  // 🚀 Buscar al presionar Enter o hacer click
+  // Buscar al presionar Enter o hacer click
   onSearch() {
     this.focused = false;
-    // if(this.buscarPalabra().length===0){
-    //   alert("Ingrese el nombre a buscar");
-    //   return;
-    // }
     this.enviarResultado.emit(this.buscarPalabra())
   }
 
-  // 👆 Seleccionar sugerencia de la lista
+  // Seleccionar sugerencia de la lista
   selectSuggestion(s: string) {
     this.buscarPalabra.set(s);
     this.onSearch();
