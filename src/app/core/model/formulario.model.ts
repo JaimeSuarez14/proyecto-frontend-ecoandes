@@ -9,7 +9,8 @@ export interface FormField {
     | 'tel'
     | 'hidden'
     | 'checkbox'
-    | 'select';
+    | 'select'
+    | 'textarea';
   placeholder?: string;
   required?: boolean;
   options?: { label: string; value: any }[]; // para checkbox o select

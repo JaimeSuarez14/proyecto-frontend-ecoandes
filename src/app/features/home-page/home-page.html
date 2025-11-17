@@ -12,14 +12,14 @@
           <h2 class="py-2 text-center font-extrabold text-2xl font-Roboto text-yellow-900 dark:text-white">
             {{item.nombre}}</h2>
           <p class="text-center dark:text-amber-300">{{ item.detalle }}</p>
-          <button
+          <button (click)="openFormularioConsulta(item.nombre)"
             class="my-2 py-2 px-4  bg-amber-700 dark:bg-amber-800 hover:bg-amber-900/80 text-white rounded-md font-bold"><i class="bi bi-hand-index-thumb mr-2"></i>Estoy Interesado</button>
         </div>
       </div>
       }
     </div>
 
-    <section class="container mx-auto my-6 p-4 md:p-8">
+    <section class="container mx-auto my-6  lg:p-4 md:p-8">
       <div class="grid grid-cols-1 md:grid-cols-2 md:gap-2 lg:gap-8">
 
         <div class="h-60 p-4" style="background-image: url('/assets/img/home/catalogo-virtual.jpg'); background-size: cover; background-position: center;">
@@ -68,12 +68,12 @@
             <img class="h-auto md:h-[275px] lg:h-[264px] w-full object-cover" [src]="item.img" alt="">
           </div>
           <div class="p-3 flex flex-col items-center w-full">
-            <h2 class="py-2 text-center font-extrabold text-xl font-Roboto text-yellow-900 dark:text-white">
+            <h2 class="py-6 text-center font-extrabold text-xl font-Roboto text-yellow-900 dark:text-white">
               {{item.nombre}}</h2>
-            <p class="text-center dark:text-amber-300">{{ item.detalle }}</p>
-            <button
+            <p class="text-center dark:text-amber-100">{{ item.detalle }}</p>
+            <a [routerLink]="['noticia', item.id]"
               class="my-2 py-1 px-2 bg-green-700 dark:bg-green-800 hover:bg-green-900/80 text-white rounded-md font-bold">Leer
-              mas...</button>
+              mas...</a>
           </div>
         </div>
         }
@@ -83,3 +83,5 @@
   </main>
   <app-alert-component [tipo]="tipo()" [mensaje]="mensaje()" [(isVisible)]="esVisible" />
 </div>
+<app-modal-container-component />
+<app-alert-confirmacion />

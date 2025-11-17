@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomePage } from '../features/home-page/home-page';
+import { Noticias } from 'app/features/home-page/noticias/noticias';
 
 export const ClientLayoutRouter: Routes = [
   {
@@ -31,6 +32,11 @@ export const ClientLayoutRouter: Routes = [
     path:'register',
     loadComponent: () => import('../features/register-page/register-page').then(r => r.RegisterPage),
     title:'Registro'
+  },
+  {
+    path:'noticia/:id',
+    component: Noticias,
+    title:'Sección Noticias'
   }
 
 ]

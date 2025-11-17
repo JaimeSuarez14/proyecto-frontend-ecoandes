@@ -1,0 +1,17 @@
+<section class="w-6xl p-6 mx-auto bg-st">
+  <a routerLink="/" class="text-fondo-normal text-xl transition-colors duration-300 bg-amber-200 hover:bg-white hover:text-black border border-amber-400 rounded-2xl py-2 px-5 cursor-pointer"><i class="bi bi-arrow-return-left mr-2"></i>Retornar</a>
+    <div class="mt-4">
+      <h1 class="text-center mb-4 text-3xl font-bold text-fondo-normal dark:text-white/50">{{noticiaSelect()?.titulo}}</h1>
+      @for(par of noticiaSelect()?.parrafo1; track $index  ){
+        <p class="mb-6">{{par}}</p>
+      }
+    </div>
+    <div class="flex">
+      <img class="w-full flex-1" [src]="noticiaSelect()?.img" alt="">
+    </div>
+    <div>
+      <h2 class="mt-8 text-fondo-normal/80 font-bold text-xl dark:text-blue-300">{{noticiaSelect()?.subtitulo1}}</h2>
+
+    </div>
+
+</section>
