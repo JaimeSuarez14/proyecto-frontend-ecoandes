@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnInit, signal } from '@angular/core';
 import { CarouselComponent } from '../../shared/carousel-component/carousel-component';
 import { AlertComponent } from '@shared/components/alert-component/alert-component';
 import { AlertaTipo } from '@models/alert.type';
@@ -11,7 +11,9 @@ import { ModalContainerComponent } from '@shared/components/modal-container-comp
 import { AuthService } from '@shared/services/auth-service';
 import { Router, RouterLink } from '@angular/router';
 import { ConfirmacionService } from '@shared/services/utils/confirmacion-service';
-import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-confirmacion";
+import { AlertConfirmacion } from '@shared/components/alert-confirmacion/alert-confirmacion';
+import { Consulta } from '@models/consulta.model';
+import { ConsultaService } from '@shared/services/consulta-service';
 
 @Component({
   selector: 'app-home-page',
@@ -21,8 +23,8 @@ import { AlertConfirmacion } from "@shared/components/alert-confirmacion/alert-c
     SubtituloDashboard,
     ModalContainerComponent,
     AlertConfirmacion,
-    RouterLink
-],
+    RouterLink,
+  ],
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
@@ -42,6 +44,9 @@ export class HomePage implements OnInit {
       this.abrirAlerta('success', 'Bienvenido Querido Usuario');
   }
 
+  constructor() {
+  }
+
   abrirAlerta(tipo: AlertaTipo, mensaje: string) {
     this.esVisible.set(true);
     this.tipo.set(tipo);
@@ -56,8 +61,11 @@ export class HomePage implements OnInit {
 
   async openFormularioConsulta(asunto: string) {
     if (this.authService.currentUserAuth$() === null) {
-      const res = await this.confirmacionService.confirm('Necesitas Iniciar Sesion, Deseas ir al Login??', 'warning');
-      if(res) this.router.navigate(['/login']);
+      const res = await this.confirmacionService.confirm(
+        'Necesitas Iniciar Sesion, Deseas ir al Login??',
+        'warning'
+      );
+      if (res) this.router.navigate(['/login']);
       return;
     }
     this.modalService.openModal({
@@ -68,12 +76,12 @@ export class HomePage implements OnInit {
         machValue: {
           asunto: asunto,
           estado: 'Pendiente',
-          username: this.authService.currentUserAuth$()?.username,
+          user: this.authService.currentUserAuth$()?.username,
           email: this.authService.currentUserAuth$()?.email,
         },
         fields: [
           {
-            name: 'username',
+            name: 'user',
             label: 'Usuario',
             type: 'text',
             required: true,
@@ -116,7 +124,38 @@ export class HomePage implements OnInit {
     });
   }
 
-  registrarConsulta(data: any) {
-    console.log(data);
+  consultaService = inject(ConsultaService);
+
+  async registrarConsulta(data: Consulta) {
+    const newConsulta = data;
+    newConsulta.user = this.authService.currentUserAuth$()!;
+    newConsulta.respuesta = 'Sin Respuesta';
+    newConsulta.fechaRespuesta = 'Sin Fecha';
+
+    const ret = await this.consultaService.crearConsulta(newConsulta!);
+
+    await this.confirmacionService.confirm('Creando una nueva consulta...Espere por favor', 'info');
+
+    if(!ret) {
+      const res = await this.confirmacionService.confirm(
+        'Hubo un error, Quieres intentar de nuevo???',
+        'error'
+      );
+      if (res) {
+        return;
+      }
+      this.modalService.closeAllModals();
+      return;
+    }
+
+    if(ret) {
+      await this.confirmacionService.confirm(
+        'Consulta Creada con Exito',
+        'success'
+      );
+
+      this.modalService.closeAllModals();
+      return;
+    }
   }
 }

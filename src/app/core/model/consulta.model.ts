@@ -14,7 +14,7 @@ export interface Consulta {
 type EstadoConsulta =  'Pendiente' | 'Resuelto';
 
 export interface ConsultaDto {
-  id: number;
+  id?: number;
   user: string; //colocamoe el username
   asunto: string;
   contenido: string;

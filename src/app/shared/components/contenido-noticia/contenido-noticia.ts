@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, input, signal } from '@angular/core';
 import { NoticiaItem } from '@models/data/noticia.items';
 import { RouterLink } from "@angular/router";
 
@@ -14,4 +14,6 @@ export class ContenidoNoticia {
   noticiaSelect = computed(() => {
     return this.noticias.find(n => n.id.toString()===this.id() )
   })
+  isOpen=signal(false);
+
 }

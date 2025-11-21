@@ -1,20 +1,4 @@
-<p>productos-admin works!</p>
 <div>
-  <h1>Modal Dinámico con Angular 20 Signals</h1>
-
-      <!-- BOTÓN 1: Abre modal con configuración básica -->
-      <button (click)="openModal()"
-              class="p-3 text-lg cursor-pointer bg-blue-600 text-white mr-2">
-        Abrir Modal
-      </button>
-
-      <!-- BOTÓN 2: Abre modal con configuración personalizada -->
-      <button (click)="openCustomModal()"
-              class="p-3 text-lg cursor-pointer bg-green-600 text-white mr-2">
-        Abrir Modal Personalizado
-      </button>
+  <app-subtitulo-dashboard titulo="Gestios de Productos" icon="bi bi-list-stars"/>
+  <paginacion-linkedsignal titulo="Productos" [lista]="productos()" [columns]="columnas"/>
 </div>
-<!-- CONTENEDOR DE MODALES -->
-    <!-- Este componente se encarga de renderizar todos los modales -->
-    <!-- Se coloca aquí una sola vez y maneja todos los modales de la app -->
-<app-modal-container-component />

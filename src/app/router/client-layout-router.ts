@@ -1,3 +1,4 @@
+import { CarritoCompras } from './../features/producto-page-client/carrito-compras/carrito-compras';
 import { Routes } from '@angular/router';
 import { HomePage } from '../features/home-page/home-page';
 import { Noticias } from 'app/features/home-page/noticias/noticias';
@@ -6,12 +7,19 @@ export const ClientLayoutRouter: Routes = [
   {
     path: '',
     component: HomePage,
+    title:'Home'
   },
 
   {
     path: 'productos',
     loadComponent: () => import('../features/producto-page-client/producto-page-client').then(m => m.ProductoPageClient),
-    title:'productos'
+    title:'productos',
+
+  },
+  {
+    path: 'productos/carrito',
+        loadComponent: () => import('../features/producto-page-client/carrito-compras/carrito-compras').then(m => m.CarritoCompras),
+        title:'productos',
   },
   {
     path:'nosotros',
